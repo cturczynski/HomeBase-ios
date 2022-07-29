@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787D2858FA2600D4C17C /* AppDelegate.swift */; };
 		928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787F2858FA2600D4C17C /* SceneDelegate.swift */; };
-		928A78822858FA2600D4C17C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A78812858FA2600D4C17C /* ViewController.swift */; };
 		928A78852858FA2600D4C17C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928A78832858FA2600D4C17C /* Main.storyboard */; };
 		928A78872858FA2800D4C17C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 928A78862858FA2800D4C17C /* Assets.xcassets */; };
 		928A788A2858FA2800D4C17C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928A78882858FA2800D4C17C /* LaunchScreen.storyboard */; };
@@ -20,6 +19,11 @@
 		92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D01286AB65A00957E50 /* TimeClockCell.swift */; };
 		92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D03286AB92900957E50 /* TipSheetCell.swift */; };
 		92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D05286ABA0A00957E50 /* YourTipsCell.swift */; };
+		92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */; };
+		92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */; };
+		92BE6CB22889DE3C00B55963 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB12889DE3C00B55963 /* Employee.swift */; };
+		92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB32889DF8600B55963 /* ShiftRequest.swift */; };
+		92BE6CB62889DF9000B55963 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB52889DF9000B55963 /* Shift.swift */; };
 		92C72BAB286AAD360030FE03 /* TimeClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BAA286AAD360030FE03 /* TimeClockViewController.swift */; };
 		92C72BAD286AAD470030FE03 /* TipSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BAC286AAD470030FE03 /* TipSheetViewController.swift */; };
 		92C72BAF286AAD5A0030FE03 /* YourTipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BAE286AAD5A0030FE03 /* YourTipsViewController.swift */; };
@@ -49,7 +53,6 @@
 		928A787A2858FA2600D4C17C /* HomeBase-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HomeBase-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A787D2858FA2600D4C17C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928A787F2858FA2600D4C17C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		928A78812858FA2600D4C17C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		928A78842858FA2600D4C17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		928A78862858FA2800D4C17C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		928A78892858FA2800D4C17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +66,11 @@
 		92A93D01286AB65A00957E50 /* TimeClockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockCell.swift; sourceTree = "<group>"; };
 		92A93D03286AB92900957E50 /* TipSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetCell.swift; sourceTree = "<group>"; };
 		92A93D05286ABA0A00957E50 /* YourTipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsCell.swift; sourceTree = "<group>"; };
+		92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
+		92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeRequest.swift; sourceTree = "<group>"; };
+		92BE6CB12889DE3C00B55963 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		92BE6CB32889DF8600B55963 /* ShiftRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftRequest.swift; sourceTree = "<group>"; };
+		92BE6CB52889DF9000B55963 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		92C72BAA286AAD360030FE03 /* TimeClockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockViewController.swift; sourceTree = "<group>"; };
 		92C72BAC286AAD470030FE03 /* TipSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetViewController.swift; sourceTree = "<group>"; };
 		92C72BAE286AAD5A0030FE03 /* YourTipsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsViewController.swift; sourceTree = "<group>"; };
@@ -119,19 +127,13 @@
 		928A787C2858FA2600D4C17C /* HomeBase-ios */ = {
 			isa = PBXGroup;
 			children = (
+				92BE6CB02889DE3000B55963 /* models */,
+				92BE6CAD2889DCEB00B55963 /* api */,
+				92BE6CAC2889DCCC00B55963 /* viewControllers */,
+				92BE6CAB2889DC8F00B55963 /* tableCells */,
 				928A787D2858FA2600D4C17C /* AppDelegate.swift */,
 				928A787F2858FA2600D4C17C /* SceneDelegate.swift */,
-				928A78812858FA2600D4C17C /* ViewController.swift */,
-				92C72BAA286AAD360030FE03 /* TimeClockViewController.swift */,
-				92A93D01286AB65A00957E50 /* TimeClockCell.swift */,
 				92A93CFF286AB37200957E50 /* Position.swift */,
-				92C72BAC286AAD470030FE03 /* TipSheetViewController.swift */,
-				92A93D03286AB92900957E50 /* TipSheetCell.swift */,
-				92C72BAE286AAD5A0030FE03 /* YourTipsViewController.swift */,
-				92A93D05286ABA0A00957E50 /* YourTipsCell.swift */,
-				92C72BB0286AAD6C0030FE03 /* YourTipsDetailController.swift */,
-				92C72BB2286AAD7C0030FE03 /* ProfileViewController.swift */,
-				92C72BB4286AAD8C0030FE03 /* TabBarViewController.swift */,
 				928A78832858FA2600D4C17C /* Main.storyboard */,
 				928A78862858FA2800D4C17C /* Assets.xcassets */,
 				928A78882858FA2800D4C17C /* LaunchScreen.storyboard */,
@@ -155,6 +157,48 @@
 				928A78A02858FA2900D4C17C /* HomeBase_iosUITestsLaunchTests.swift */,
 			);
 			path = "HomeBase-iosUITests";
+			sourceTree = "<group>";
+		};
+		92BE6CAB2889DC8F00B55963 /* tableCells */ = {
+			isa = PBXGroup;
+			children = (
+				92A93D01286AB65A00957E50 /* TimeClockCell.swift */,
+				92A93D03286AB92900957E50 /* TipSheetCell.swift */,
+				92A93D05286ABA0A00957E50 /* YourTipsCell.swift */,
+			);
+			path = tableCells;
+			sourceTree = "<group>";
+		};
+		92BE6CAC2889DCCC00B55963 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				92C72BAA286AAD360030FE03 /* TimeClockViewController.swift */,
+				92C72BAC286AAD470030FE03 /* TipSheetViewController.swift */,
+				92C72BAE286AAD5A0030FE03 /* YourTipsViewController.swift */,
+				92C72BB0286AAD6C0030FE03 /* YourTipsDetailController.swift */,
+				92C72BB2286AAD7C0030FE03 /* ProfileViewController.swift */,
+				92C72BB4286AAD8C0030FE03 /* TabBarViewController.swift */,
+				92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */,
+			);
+			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		92BE6CAD2889DCEB00B55963 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */,
+				92BE6CB32889DF8600B55963 /* ShiftRequest.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		92BE6CB02889DE3000B55963 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				92BE6CB12889DE3C00B55963 /* Employee.swift */,
+				92BE6CB52889DF9000B55963 /* Shift.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,16 +334,20 @@
 			files = (
 				92C72BAD286AAD470030FE03 /* TipSheetViewController.swift in Sources */,
 				92C72BB1286AAD6C0030FE03 /* YourTipsDetailController.swift in Sources */,
-				928A78822858FA2600D4C17C /* ViewController.swift in Sources */,
+				92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */,
 				92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */,
+				92BE6CB62889DF9000B55963 /* Shift.swift in Sources */,
+				92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */,
 				92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */,
 				928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */,
 				92C72BB5286AAD8C0030FE03 /* TabBarViewController.swift in Sources */,
 				92C72BAB286AAD360030FE03 /* TimeClockViewController.swift in Sources */,
+				92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */,
 				92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */,
 				928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */,
 				92C72BB3286AAD7C0030FE03 /* ProfileViewController.swift in Sources */,
 				92A93D00286AB37200957E50 /* Position.swift in Sources */,
+				92BE6CB22889DE3C00B55963 /* Employee.swift in Sources */,
 				92C72BAF286AAD5A0030FE03 /* YourTipsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

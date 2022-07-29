@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Position: String, CaseIterable {
+enum Position: String, CaseIterable, Decodable {
     case bartender = "Bartender"
     case barback = "Barback"
     case server = "Server"

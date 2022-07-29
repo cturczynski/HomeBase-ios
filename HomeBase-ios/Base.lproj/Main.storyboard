@@ -12,7 +12,7 @@
         <scene sceneID="Kd5-Ab-8JO">
             <objects>
                 <navigationController id="zUO-Dq-Vok" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Timeclock" id="gi6-5n-X9j"/>
+                    <tabBarItem key="tabBarItem" title="Timeclock" image="timeclock-icon" id="gi6-5n-X9j"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bjW-Bh-ItU">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -248,6 +248,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Zs4-Bn-Upb">
                                 <rect key="frame" x="0.0" y="200.5" width="414" height="612.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TipSheetCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TipSheetCell" id="KAL-Kd-t0y" customClass="TipSheetCell" customModule="HomeBase_ios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
@@ -347,7 +348,7 @@
         <scene sceneID="0HF-KA-GmW">
             <objects>
                 <navigationController id="ZFQ-fL-1PL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Your Tips" id="XMJ-38-u1P"/>
+                    <tabBarItem key="tabBarItem" title="Your Tips" image="yourincome-icon" id="XMJ-38-u1P"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cBK-yw-PK3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -629,7 +630,7 @@
         <scene sceneID="wAz-Lm-5Cp">
             <objects>
                 <navigationController id="PBR-SK-LAh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="T20-70-j4n"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile-icon" id="T20-70-j4n"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zLk-Rx-7N3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -687,6 +688,9 @@
                                     <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
                                     <color key="baseBackgroundColor" systemColor="systemOrangeColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="signOutAction:" destination="qKg-3C-aQc" eventType="touchUpInside" id="vbe-Q1-dJh"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBY-iN-fmd">
                                 <rect key="frame" x="259" y="395" width="135" height="33"/>
@@ -749,6 +753,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="0OL-at-53v"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="emailLabel" destination="3jI-y4-0us" id="xZb-oF-Y0e"/>
+                        <outlet property="nameLabel" destination="VBY-iN-fmd" id="MMy-8L-DB5"/>
+                        <outlet property="phoneLabel" destination="3Y7-Xe-EBx" id="L4j-9m-SQh"/>
+                        <outlet property="profileImageView" destination="rPi-e0-eky" id="2UG-w6-i0b"/>
+                        <outlet property="startDateLabel" destination="Rao-Ou-SS6" id="YzV-ln-5ke"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYv-T9-6au" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -779,7 +790,7 @@
         <scene sceneID="2jQ-6h-8st">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jwm-4V-H93" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tip Sheet" id="mEA-GA-FsO"/>
+                    <tabBarItem key="tabBarItem" title="Tip Sheet" image="tipsheet-icon" id="mEA-GA-FsO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="W85-KB-JlW">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -796,6 +807,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="profile-icon" width="30" height="30"/>
+        <image name="timeclock-icon" width="30" height="30"/>
+        <image name="tipsheet-icon" width="30" height="30"/>
+        <image name="yourincome-icon" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

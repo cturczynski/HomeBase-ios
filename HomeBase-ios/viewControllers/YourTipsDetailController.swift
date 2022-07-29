@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class YourTipsDetailController: UIViewController {
+class YourTipsDetailController: NavBarViewController {
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var clockInLabel: UILabel!

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TimeClockViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var positionPickerView: UIPickerView!
     @IBOutlet weak var tableview: UITableView!

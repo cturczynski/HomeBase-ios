@@ -1,5 +1,5 @@
 //
-//  YourTipsViewController.swift
+//  TipSheetViewController.swift
 //  HomeBase-ios
 //
 //  Created by Casey Turczynski on 6/27/22.
@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-class YourTipsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var totalTipsAmountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class YourTipsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "YourTipsCell", for: indexPath) as! YourTipsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TipSheetCell", for: indexPath) as! TipSheetCell
         return cell
     }
 }
