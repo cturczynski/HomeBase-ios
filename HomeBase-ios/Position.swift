@@ -8,8 +8,8 @@
 import Foundation
 
 enum Position: String, CaseIterable, Decodable {
-    case bartender = "Bartender"
-    case barback = "Barback"
-    case server = "Server"
-    case manager = "Manager"
+    case bartender = "BARTENDER"
+    case barback = "BARBACK"
+    case server = "SERVER"
+    case manager = "MANAGER"
 }

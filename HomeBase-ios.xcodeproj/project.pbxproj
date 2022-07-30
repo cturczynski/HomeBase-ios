@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9206C48B2894C2EE00F74BE6 /* UIHelper.swift */; };
 		928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787D2858FA2600D4C17C /* AppDelegate.swift */; };
 		928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787F2858FA2600D4C17C /* SceneDelegate.swift */; };
 		928A78852858FA2600D4C17C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928A78832858FA2600D4C17C /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 		928A78952858FA2900D4C17C /* HomeBase_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A78942858FA2900D4C17C /* HomeBase_iosTests.swift */; };
 		928A789F2858FA2900D4C17C /* HomeBase_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A789E2858FA2900D4C17C /* HomeBase_iosUITests.swift */; };
 		928A78A12858FA2900D4C17C /* HomeBase_iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A78A02858FA2900D4C17C /* HomeBase_iosUITestsLaunchTests.swift */; };
+		92A5225828937F3700FEEC2F /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A5225728937F3700FEEC2F /* ApiHelper.swift */; };
+		92A5225A2894BC0000FEEC2F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A522592894BC0000FEEC2F /* LoginViewController.swift */; };
 		92A93D00286AB37200957E50 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93CFF286AB37200957E50 /* Position.swift */; };
 		92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D01286AB65A00957E50 /* TimeClockCell.swift */; };
 		92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D03286AB92900957E50 /* TipSheetCell.swift */; };
@@ -50,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9206C48B2894C2EE00F74BE6 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		928A787A2858FA2600D4C17C /* HomeBase-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HomeBase-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A787D2858FA2600D4C17C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928A787F2858FA2600D4C17C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		928A789A2858FA2900D4C17C /* HomeBase-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HomeBase-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A789E2858FA2900D4C17C /* HomeBase_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBase_iosUITests.swift; sourceTree = "<group>"; };
 		928A78A02858FA2900D4C17C /* HomeBase_iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBase_iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		92A5225728937F3700FEEC2F /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
+		92A522592894BC0000FEEC2F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		92A93CFF286AB37200957E50 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		92A93D01286AB65A00957E50 /* TimeClockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockCell.swift; sourceTree = "<group>"; };
 		92A93D03286AB92900957E50 /* TipSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetCell.swift; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				928A787D2858FA2600D4C17C /* AppDelegate.swift */,
 				928A787F2858FA2600D4C17C /* SceneDelegate.swift */,
 				92A93CFF286AB37200957E50 /* Position.swift */,
+				9206C48B2894C2EE00F74BE6 /* UIHelper.swift */,
 				928A78832858FA2600D4C17C /* Main.storyboard */,
 				928A78862858FA2800D4C17C /* Assets.xcassets */,
 				928A78882858FA2800D4C17C /* LaunchScreen.storyboard */,
@@ -179,6 +186,7 @@
 				92C72BB2286AAD7C0030FE03 /* ProfileViewController.swift */,
 				92C72BB4286AAD8C0030FE03 /* TabBarViewController.swift */,
 				92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */,
+				92A522592894BC0000FEEC2F /* LoginViewController.swift */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -188,6 +196,7 @@
 			children = (
 				92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */,
 				92BE6CB32889DF8600B55963 /* ShiftRequest.swift */,
+				92A5225728937F3700FEEC2F /* ApiHelper.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -336,6 +345,8 @@
 				92C72BB1286AAD6C0030FE03 /* YourTipsDetailController.swift in Sources */,
 				92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */,
 				92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */,
+				92A5225A2894BC0000FEEC2F /* LoginViewController.swift in Sources */,
+				9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */,
 				92BE6CB62889DF9000B55963 /* Shift.swift in Sources */,
 				92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */,
 				92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */,
@@ -344,6 +355,7 @@
 				92C72BAB286AAD360030FE03 /* TimeClockViewController.swift in Sources */,
 				92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */,
 				92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */,
+				92A5225828937F3700FEEC2F /* ApiHelper.swift in Sources */,
 				928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */,
 				92C72BB3286AAD7C0030FE03 /* ProfileViewController.swift in Sources */,
 				92A93D00286AB37200957E50 /* Position.swift in Sources */,

@@ -15,6 +15,15 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let shiftRequest = ShiftRequest.init(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil)
+        shiftRequest.fetchShifts { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let shifts):
+                print(shifts)
+            }
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

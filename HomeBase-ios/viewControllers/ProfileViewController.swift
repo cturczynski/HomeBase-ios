@@ -18,22 +18,26 @@ class ProfileViewController: NavBarViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let employeeRequest = EmployeeRequest.init(id: 1)
-        employeeRequest.fetchEmployees { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let employees):
-                let employee = employees[0]
-                self?.nameLabel.text = employee.name
-                self?.emailLabel.text = employee.email
-                self?.phoneLabel.text = employee.phone
-                self?.startDateLabel.text = employee.startDate.formatted()
-            }
+        
+        profileImageView.image = UIImage(named: "profile-icon")
+        if let user = currentUser {
+            nameLabel.text = user.name
+            nameLabel.adjustsFontSizeToFitWidth = true
+            emailLabel.text = user.email
+            emailLabel.adjustsFontSizeToFitWidth = true
+            phoneLabel.text = formatPhoneNumber(phone: user.phone)
+            phoneLabel.adjustsFontSizeToFitWidth = true
+            startDateLabel.text = createDateFormatter(withFormat: "MM/dd/yyyy").string(from: user.startDate)
+            startDateLabel.adjustsFontSizeToFitWidth = true
+        } else {
+            goToViewController(vcId: "LoginViewController", fromController: self)
         }
+        
     }
     
     @IBAction func signOutAction(_ sender: Any) {
+        currentUser = nil
+        goToViewController(vcId: "LoginViewController", fromController: self)
     }
     
 }

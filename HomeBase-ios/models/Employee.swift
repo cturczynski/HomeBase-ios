@@ -7,11 +7,13 @@
 
 import Foundation
 
+public var currentUser: Employee?
+
 struct EmployeeResult: Decodable {
     var employees: [Employee]
 }
 
-struct Employee: Decodable {
+public struct Employee: Decodable {
     var id: Int
     var name: String
     var phone: String

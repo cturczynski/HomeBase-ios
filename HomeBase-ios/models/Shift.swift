@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct ShiftResult: Decodable {
+    var shifts: [Shift]
+}
+
 struct Shift: Decodable {
     var id: Int
     var date: Date
@@ -14,8 +18,8 @@ struct Shift: Decodable {
     var position: Position
     var start: Date
     var end: Date
-    var clockIn: Date
-    var clockOut: Date
-    var tips: Double
-    var totalTips: Double
+    var clockIn: Date?
+    var clockOut: Date?
+    var tips: Double?
+    var totalTips: Double?
 }
