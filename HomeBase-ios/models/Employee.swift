@@ -9,15 +9,16 @@ import Foundation
 
 public var currentUser: Employee?
 
-struct EmployeeResult: Decodable {
+struct EmployeeResult: Codable {
     var employees: [Employee]
 }
 
-public struct Employee: Decodable {
+public struct Employee: Codable {
     var id: Int
     var name: String
     var phone: String
     var email: String
+    var username: String
     var managerFlag: Bool
     var profileImageString: String?
     var startDate: Date
