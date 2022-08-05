@@ -31,7 +31,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return currentUserShifts?.count ?? 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -40,6 +40,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TimeClockCell", for: indexPath) as! TimeClockCell
+        cell.dateLabel.text = createDateFormatter(withFormat: "MM/dd/yyyy").string(from: currentUserShifts![indexPath.row].date)
         return cell
     }
     

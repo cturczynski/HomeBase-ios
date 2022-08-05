@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct EmployeeRequest {
     
     let requestURL: URL
-    let apiHelper = ApiHelper()
+    let apiHelper = ApiHelper(snakeCase: true)
     
     init(id: Int?, username: String?) {
         var requestString = "http://localhost:3001/employee"
@@ -53,7 +54,12 @@ struct EmployeeRequest {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
                 let employeeResult = try apiHelper.jsonDecoder.decode(EmployeeResult.self, from: jsonData)
-                completion(.success(employeeResult.employees))
+                
+                if employeeResult.error != nil || employeeResult.employees == nil{
+                    completion(.failure(.requestFailed))
+                } else {
+                    completion(.success(employeeResult.employees!))
+                }
             } catch {
                 print(error)
                 completion(.failure(.cannotProcessData))
@@ -63,7 +69,7 @@ struct EmployeeRequest {
     }
     
     //TODO: save employee object with body for editting profile
-    func updateEmployee(completion: @escaping(Result<Employee, ApiRequestError>) -> Void) {
+    func updateEmployee(completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
         
         var request = apiHelper.createPostRequest(url: requestURL)
         
@@ -85,8 +91,13 @@ struct EmployeeRequest {
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
-                let employeeResult = try ApiHelper().jsonDecoder.decode(Employee.self, from: jsonData)
-                completion(.success(employeeResult))
+                let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
+                
+                if updateResultJson.error != nil || updateResultJson.updateResult == nil{
+                    completion(.failure(.requestFailed))
+                } else {
+                    completion(.success(updateResultJson.updateResult!.affectedRows > 0))
+                }
             } catch {
                 print(error)
                 completion(.failure(.cannotProcessData))

@@ -20,16 +20,20 @@ class ApiHelper {
     let jsonDecoder: JSONDecoder
     let jsonEncoder: JSONEncoder
     
-    init() {
+    init(snakeCase: Bool) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         let jsonDecoder = JSONDecoder()
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
         jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         let jsonEncoder = JSONEncoder()
         jsonEncoder.dateEncodingStrategy = .formatted(dateFormatter)
+        
+        if snakeCase {
+            jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+            jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
+        }
         
         self.dateFormatter = dateFormatter
         self.jsonDecoder = jsonDecoder

@@ -10,7 +10,7 @@ import Foundation
 struct ShiftRequest {
     
     let requestURL: URL
-    let apiHelper = ApiHelper()
+    let apiHelper = ApiHelper(snakeCase: true)
     
     init(id: Int?, employee: Int?, date: Date?, start: Date?, end: Date?) {
         var requestString = "http://localhost:3001/shift"
@@ -64,7 +64,12 @@ struct ShiftRequest {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
                 let shiftResult = try apiHelper.jsonDecoder.decode(ShiftResult.self, from: jsonData)
-                completion(.success(shiftResult.shifts))
+                
+                if shiftResult.error != nil || shiftResult.shifts == nil {
+                    completion(.failure(.requestFailed))
+                } else {
+                    completion(.success(shiftResult.shifts!))
+                }
             } catch {
                 print(error)
                 completion(.failure(.cannotProcessData))
@@ -74,14 +79,14 @@ struct ShiftRequest {
     }
     
     //TODO: save shift object with body for clocking in/out
-    func updateShift(completion: @escaping(Result<Shift, ApiRequestError>) -> Void) {
+    func updateShift(shift: Shift, completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
         
         var request = apiHelper.createPostRequest(url: requestURL)
         
         do {
-            let userJson = try ApiHelper.init().jsonEncoder.encode(currentUser)
-            let userData = try JSONSerialization.data(withJSONObject: userJson, options: [])
-            request.httpBody = userData
+            let shiftJson = try apiHelper.jsonEncoder.encode(shift)
+            let shiftData = try JSONSerialization.data(withJSONObject: shiftJson, options: [])
+            request.httpBody = shiftData
         } catch {
             print(error)
             completion(.failure(.cannotEncodeData))
@@ -97,8 +102,13 @@ struct ShiftRequest {
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
-                let employeeResult = try apiHelper.jsonDecoder.decode(Shift.self, from: jsonData)
-                completion(.success(employeeResult))
+                let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
+                
+                if updateResultJson.error != nil || updateResultJson.updateResult == nil{
+                    completion(.failure(.requestFailed))
+                } else {
+                    completion(.success(updateResultJson.updateResult!.affectedRows > 0))
+                }
             } catch {
                 print(error)
                 completion(.failure(.cannotProcessData))

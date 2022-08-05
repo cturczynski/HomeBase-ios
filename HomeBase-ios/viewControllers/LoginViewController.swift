@@ -32,15 +32,30 @@ class LoginViewController: UIViewController {
                         displayAlert("Invalid login", message: "No users registered with that username.", sender: self!)
                     } else {
                         let employee = employees[0]
-                        self?.loginUser(user: employee)
+                        self?.getUsersShifts(employee: employee)
                     }
                 }
             }
         }
     }
     
-    func loginUser(user: Employee) {
+    func getUsersShifts(employee: Employee) {
+        let shiftRequest = ShiftRequest(id: nil, employee: employee.id, date: nil, start: nil, end: nil)
+        shiftRequest.fetchShifts { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let shifts):
+                DispatchQueue.main.async {
+                    self?.loginUser(user: employee, shifts: shifts)
+                }
+            }
+        }
+    }
+    
+    func loginUser(user: Employee, shifts: [Shift]) {
         currentUser = user
+        currentUserShifts = shifts
         goToViewController(vcId: "TabBarViewController", fromController: self)
     }
 }

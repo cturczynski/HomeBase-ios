@@ -7,11 +7,14 @@
 
 import Foundation
 
-struct ShiftResult: Decodable {
-    var shifts: [Shift]
+public var currentUserShifts: [Shift]?
+
+struct ShiftResult: Codable {
+    var error: String?
+    var shifts: [Shift]?
 }
 
-struct Shift: Decodable {
+public struct Shift: Codable {
     var id: Int
     var date: Date
     var employeeId: Int

@@ -32,12 +32,16 @@ class ProfileViewController: NavBarViewController {
         } else {
             goToViewController(vcId: "LoginViewController", fromController: self)
         }
-        let employeeRequest = EmployeeRequest.init().updateEmployee { [weak self] result in
+        EmployeeRequest.init().updateEmployee { [weak self] result in
             switch(result) {
             case .failure(let error):
                 print(error)
-            case .success(let employee):
-                print(employee)
+            case .success(let success):
+                if success {
+                    print(success)
+                } else {
+                    
+                }
             }
         }
         
@@ -45,6 +49,7 @@ class ProfileViewController: NavBarViewController {
     
     @IBAction func signOutAction(_ sender: Any) {
         currentUser = nil
+        currentUserShifts = nil
         goToViewController(vcId: "LoginViewController", fromController: self)
     }
     
