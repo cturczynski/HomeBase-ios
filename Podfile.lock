@@ -1,0 +1,24 @@
+PODS:
+  - IQKeyboardManagerSwift (6.5.10)
+  - RSKImageCropper (4.0.0)
+  - Toast (4.0.0)
+
+DEPENDENCIES:
+  - IQKeyboardManagerSwift
+  - RSKImageCropper
+  - Toast
+
+SPEC REPOS:
+  trunk:
+    - IQKeyboardManagerSwift
+    - RSKImageCropper
+    - Toast
+
+SPEC CHECKSUMS:
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  RSKImageCropper: 90dfe482402fb8a40cabd5fea65186d9102cc425
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+
+PODFILE CHECKSUM: 4c50c4ead5a5a2f01ead6759e9650b98701d9732
+
+COCOAPODS: 1.11.3

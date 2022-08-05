@@ -1,0 +1,6 @@
+framework module Pods_HomeBase_ios_HomeBase_iosUITests {
+  umbrella header "Pods-HomeBase-ios-HomeBase-iosUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

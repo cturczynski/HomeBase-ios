@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-HomeBase-ios/Pods-HomeBase-ios-frameworks.sh
+${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/RSKImageCropper/RSKImageCropper.framework
+${BUILT_PRODUCTS_DIR}/Toast/Toast.framework
