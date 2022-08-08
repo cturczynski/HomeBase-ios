@@ -32,7 +32,7 @@ class ProfileViewController: NavBarViewController {
         } else {
             goToViewController(vcId: "LoginViewController", fromController: self)
         }
-        EmployeeRequest.init().updateEmployee { [weak self] result in
+        EmployeeRequest.init(action: "update").setEmployee { [weak self] result in
             switch(result) {
             case .failure(let error):
                 print(error)

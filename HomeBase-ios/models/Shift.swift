@@ -26,3 +26,10 @@ public struct Shift: Codable {
     var tips: Double?
     var totalTips: Double?
 }
+
+struct IndividualShift {
+    var date: Date
+    var clockTime: Date
+    var clockDirection: String
+    var totalShiftTime: String
+}

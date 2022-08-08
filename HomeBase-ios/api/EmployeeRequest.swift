@@ -35,8 +35,8 @@ struct EmployeeRequest {
         self.requestURL = requestURL
     }
     
-    init() {
-        let requestString = "http://localhost:3001/employee"
+    init(action: String) {
+        let requestString = "http://localhost:3001/employee/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
         self.requestURL = requestURL
@@ -69,7 +69,7 @@ struct EmployeeRequest {
     }
     
     //TODO: save employee object with body for editting profile
-    func updateEmployee(completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
+    func setEmployee(completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
         
         var request = apiHelper.createPostRequest(url: requestURL)
         

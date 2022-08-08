@@ -26,6 +26,9 @@ class LoginViewController: UIViewController {
             switch result {
             case .failure(let error):
                 print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not log in at this time. Please try again later or contact support.", sender: self!)
+                }
             case .success(let employees):
                 DispatchQueue.main.async {
                     if employees.isEmpty {
@@ -45,6 +48,9 @@ class LoginViewController: UIViewController {
             switch result {
             case .failure(let error):
                 print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not load all user data. Please try again later or contact support.", sender: self!)
+                }
             case .success(let shifts):
                 DispatchQueue.main.async {
                     self?.loginUser(user: employee, shifts: shifts)

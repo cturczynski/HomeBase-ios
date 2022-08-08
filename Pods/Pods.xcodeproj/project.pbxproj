@@ -159,7 +159,7 @@
 		4B71D6E7D179044E637620CA169BA822 /* UIView+Toast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+Toast.h"; path = "Toast/UIView+Toast.h"; sourceTree = "<group>"; };
 		4D98FB149C0A594C616824607248DB33 /* IQPreviousNextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQPreviousNextView.swift; path = IQKeyboardManagerSwift/IQToolbar/IQPreviousNextView.swift; sourceTree = "<group>"; };
 		5080BB2F60A9C6E0BD5F3E6C446A9B76 /* IQUIViewController+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQUIViewController+Additions.swift"; path = "IQKeyboardManagerSwift/Categories/IQUIViewController+Additions.swift"; sourceTree = "<group>"; };
-		55E0AFD333353D71ACC2207149E879D6 /* Toast */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Toast; path = Toast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E0AFD333353D71ACC2207149E879D6 /* Toast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Toast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		562788BBF1394E5EC72F1F783AFE2640 /* Pods-HomeBase-iosTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HomeBase-iosTests-dummy.m"; sourceTree = "<group>"; };
 		56C146DC227521E87B24712F745A20BA /* RSKImageScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSKImageScrollView.h; path = RSKImageCropper/RSKImageScrollView.h; sourceTree = "<group>"; };
 		56C5659383352AEE86B59C5D3F7AF1DD /* CGGeometry+RSKImageCropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CGGeometry+RSKImageCropper.m"; path = "RSKImageCropper/CGGeometry+RSKImageCropper.m"; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		9573D88234A4CBEB019ACB885155B384 /* Pods-HomeBase-iosTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HomeBase-iosTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9840460AEC5C59EC09E219399929A66D /* RSKImageCropper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RSKImageCropper.release.xcconfig; sourceTree = "<group>"; };
 		99F09F145414572AA99F33C9F576F447 /* RSKImageScrollView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RSKImageScrollView.m; path = RSKImageCropper/RSKImageScrollView.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A08575E79CF22C4CB03B1C131A79988F /* CGGeometry+RSKImageCropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CGGeometry+RSKImageCropper.h"; path = "RSKImageCropper/CGGeometry+RSKImageCropper.h"; sourceTree = "<group>"; };
 		A1889176C17B07251FA9C5B40F66CADD /* Pods-HomeBase-ios-HomeBase-iosUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HomeBase-ios-HomeBase-iosUITests-umbrella.h"; sourceTree = "<group>"; };
 		A3BF7314B1C9EB99243E771CB0C61ACB /* IQUITextFieldView+Additions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQUITextFieldView+Additions.swift"; path = "IQKeyboardManagerSwift/Categories/IQUITextFieldView+Additions.swift"; sourceTree = "<group>"; };
@@ -364,7 +364,6 @@
 				144DD46F68471D04DEEEBFC7D5F752A4 /* Resources */,
 				2FD3B7D86F37876BE817479C6AFC7394 /* Support Files */,
 			);
-			name = RSKImageCropper;
 			path = RSKImageCropper;
 			sourceTree = "<group>";
 		};
@@ -376,7 +375,7 @@
 				C9FCB73207E17918E6E47587FE35C7E6 /* Pods-HomeBase-ios-HomeBase-iosUITests */,
 				6683B71AF87D7D63D513117716F02C22 /* Pods-HomeBase-iosTests */,
 				580712ADE0DDE9601ED35B000EC802D6 /* RSKImageCropper */,
-				55E0AFD333353D71ACC2207149E879D6 /* Toast */,
+				55E0AFD333353D71ACC2207149E879D6 /* Toast.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -445,7 +444,6 @@
 				5080BB2F60A9C6E0BD5F3E6C446A9B76 /* IQUIViewController+Additions.swift */,
 				FAE3503CEEFDB6946B4CAF8B9CD28168 /* Support Files */,
 			);
-			name = IQKeyboardManagerSwift;
 			path = IQKeyboardManagerSwift;
 			sourceTree = "<group>";
 		};
@@ -490,7 +488,6 @@
 				C375CC61801DE84011F5EADD948BAA23 /* UIView+Toast.m */,
 				CE10BAD4257DDE3D25C96974C73C4411 /* Support Files */,
 			);
-			name = Toast;
 			path = Toast;
 			sourceTree = "<group>";
 		};
@@ -636,7 +633,7 @@
 			);
 			name = Toast;
 			productName = Toast;
-			productReference = 55E0AFD333353D71ACC2207149E879D6 /* Toast */;
+			productReference = 55E0AFD333353D71ACC2207149E879D6 /* Toast.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B356CE6DA2D74813A6718DE8B30E3726 /* Pods-HomeBase-ios-HomeBase-iosUITests */ = {
@@ -1267,7 +1264,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Toast/Toast-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Toast/Toast-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1413,7 +1410,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Toast/Toast-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Toast/Toast-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

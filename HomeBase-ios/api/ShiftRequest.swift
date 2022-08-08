@@ -45,8 +45,8 @@ struct ShiftRequest {
         self.requestURL = requestURL
     }
     
-    init() {
-        let requestString = "http://localhost:3001/shift"
+    init(action: String) {
+        let requestString = "http://localhost:3001/shift/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
         self.requestURL = requestURL
@@ -79,13 +79,14 @@ struct ShiftRequest {
     }
     
     //TODO: save shift object with body for clocking in/out
-    func updateShift(shift: Shift, completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
+    func setShift(shift: Shift, completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
         
         var request = apiHelper.createPostRequest(url: requestURL)
         
         do {
-            let shiftJson = try apiHelper.jsonEncoder.encode(shift)
-            let shiftData = try JSONSerialization.data(withJSONObject: shiftJson, options: [])
+            print(shift)
+            let shiftData = try apiHelper.jsonEncoder.encode(shift)
+            print(shiftData)
             request.httpBody = shiftData
         } catch {
             print(error)
