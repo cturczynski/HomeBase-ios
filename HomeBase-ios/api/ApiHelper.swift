@@ -12,6 +12,7 @@ public enum ApiRequestError: Error {
     case requestFailed
     case cannotProcessData
     case cannotEncodeData
+    case noMatchingResults
 }
 
 class ApiHelper {

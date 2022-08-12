@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 
-struct EmployeeRequest {
-    
-    let requestURL: URL
-    let apiHelper = ApiHelper(snakeCase: true)
+class EmployeeRequest: Request {
     
     init(id: Int?, username: String?) {
         var requestString = "http://localhost:3001/employee"
@@ -32,14 +29,14 @@ struct EmployeeRequest {
         
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
-        self.requestURL = requestURL
+        super.init(requestURL: requestURL)
     }
     
     init(action: String) {
         let requestString = "http://localhost:3001/employee/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
-        self.requestURL = requestURL
+        super.init(requestURL: requestURL)
     }
     
     func fetchEmployees(completion: @escaping(Result<[Employee], ApiRequestError>) -> Void) {
@@ -53,7 +50,7 @@ struct EmployeeRequest {
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
-                let employeeResult = try apiHelper.jsonDecoder.decode(EmployeeResult.self, from: jsonData)
+                let employeeResult = try self.apiHelper.jsonDecoder.decode(EmployeeResult.self, from: jsonData)
                 
                 if employeeResult.error != nil || employeeResult.employees == nil{
                     completion(.failure(.requestFailed))
@@ -67,43 +64,4 @@ struct EmployeeRequest {
         }
         dataTask.resume()
     }
-    
-    //TODO: save employee object with body for editting profile
-    func setEmployee(completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
-        
-        var request = apiHelper.createPostRequest(url: requestURL)
-        
-        do {
-            let userData = try apiHelper.jsonEncoder.encode(currentUser)
-            request.httpBody = userData
-        } catch {
-            print(error)
-            completion(.failure(.cannotEncodeData))
-            return
-        }
-        
-        let dataTask = URLSession.shared.dataTask(with: request) {data, _, _ in
-            guard let jsonData = data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
-                print(json!)
-                let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
-                
-                if updateResultJson.error != nil || updateResultJson.updateResult == nil{
-                    completion(.failure(.requestFailed))
-                } else {
-                    completion(.success(updateResultJson.updateResult!.affectedRows > 0))
-                }
-            } catch {
-                print(error)
-                completion(.failure(.cannotProcessData))
-            }
-        }
-        dataTask.resume()
-    }
-    
 }

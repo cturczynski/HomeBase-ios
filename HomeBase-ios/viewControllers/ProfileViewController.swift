@@ -32,16 +32,12 @@ class ProfileViewController: NavBarViewController {
         } else {
             goToViewController(vcId: "LoginViewController", fromController: self)
         }
-        EmployeeRequest.init(action: "update").setEmployee { [weak self] result in
+        EmployeeRequest.init(action: "update").saveToDb(obj: currentUser!) { [weak self] result in
             switch(result) {
             case .failure(let error):
                 print(error)
-            case .success(let success):
-                if success {
-                    print(success)
-                } else {
-                    
-                }
+            case .success(let updateResult):
+                print(updateResult)
             }
         }
         

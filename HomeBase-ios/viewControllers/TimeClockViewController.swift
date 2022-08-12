@@ -21,6 +21,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        clockInButton.addTarget(self, action: #selector(self.clockInOutAction), for: .touchUpInside)
         getTodaysShift()
         makeIndividualShifts()
     }
@@ -115,59 +116,67 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         return cell
     }
     
-    //get updated shift array for currentUserShifts
-    @IBAction func ClockInOutAction(_ sender: Any) {
-        if openShift != nil {
-            openShift?.clockOut = Date()
-            ShiftRequest(action: "update").setShift(shift: openShift!) { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    print(error)
-                    DispatchQueue.main.async {
-                        displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
-                    }
-                case .success(let success):
-                    if success {
-                        let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
-                        self?.timeclockShifts.insert((individualShifts?.1!)!, at: 0)
-                        DispatchQueue.main.async {
-                            self?.openShift = nil
-                            self!.tableview.reloadData()
-                            self?.clockInButton.setTitle("Clock In", for: .normal)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
-                        }
-                    }
+    func clockOutAndUpdateShift() {
+        openShift?.clockOut = Date()
+        ShiftRequest(action: "update").saveToDb(obj: openShift!) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
+                }
+            case .success(_):
+                let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
+                self?.timeclockShifts.insert((individualShifts?.1!)!, at: 0)
+                self?.openShift = nil
+                DispatchQueue.main.async {
+                    self!.tableview.reloadData()
+                    self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
             }
-        } else {
-            let newShift = Shift(id: 0, date: Date(), employeeId: currentUser!.id, position: position, start: Date(), end: Date(), clockIn: Date(), clockOut: nil, tips: nil, totalTips: nil)
+        }
+    }
+    
+    func clockInNewShift() {
+        var newShift = Shift(id: 0, date: Date(), employeeId: currentUser!.id, position: position, start: Date(), end: Date(), clockIn: Date(), clockOut: nil, tips: nil, totalTips: nil)
 
-            ShiftRequest.init(action: "create").setShift(shift: newShift) { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    print(error)
-                    DispatchQueue.main.async {
-                        displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
-                    }
-                case .success(let success):
-                    if success {
-                        let individualShifts = self?.individualShiftsFromShift(shift: newShift)
-                        self?.timeclockShifts.insert((individualShifts?.0!)!, at: 0)
-                        DispatchQueue.main.async {
-                            self?.clockInButton.setTitle("Clock Out", for: .normal)
-                            self!.tableview.reloadData()
-                            self?.openShift = newShift
-                            currentUserShifts?.append(newShift)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
-                        }
-                    }
+        ShiftRequest(action: "create").saveToDb(obj: newShift) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
                 }
+            case .success(let updateResult):
+                newShift.id = updateResult.insertId ?? 0
+                let individualShifts = self?.individualShiftsFromShift(shift: newShift)
+                self?.timeclockShifts.insert((individualShifts?.0!)!, at: 0)
+                self?.openShift = newShift
+                currentUserShifts?.append(newShift)
+                DispatchQueue.main.async {
+                    self!.tableview.reloadData()
+                    self?.clockInButton.setTitle("Clock Out", for: .normal)
+                }
+            }
+        }
+    }
+    
+    //get updated shift array for currentUserShifts
+    @objc func clockInOutAction() {
+        Task {
+            let updatedShifts = await ShiftRequest(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil).refreshShifts()
+            if updatedShifts == nil {
+                displayAlert("Error", message: "Could not get updated shifts at this time. Please try again later.", sender: self)
+                return
+            } else {
+                currentUserShifts = updatedShifts
+                getTodaysShift()
+                makeIndividualShifts()
+            }
+            if openShift != nil {
+                clockOutAndUpdateShift()
+            } else {
+                clockInNewShift()
             }
         }
     }

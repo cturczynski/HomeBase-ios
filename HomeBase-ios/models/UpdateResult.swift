@@ -16,4 +16,5 @@ struct UpdateResult: Codable {
     var affectedRows: Int
     var info: String
     var changedRows: Int?
+    var insertId: Int?
 }

@@ -7,10 +7,7 @@
 
 import Foundation
 
-struct ShiftRequest {
-    
-    let requestURL: URL
-    let apiHelper = ApiHelper(snakeCase: true)
+class ShiftRequest: Request{
     
     init(id: Int?, employee: Int?, date: Date?, start: Date?, end: Date?) {
         var requestString = "http://localhost:3001/shift"
@@ -42,14 +39,14 @@ struct ShiftRequest {
         
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
-        self.requestURL = requestURL
+        super.init(requestURL: requestURL)
     }
     
     init(action: String) {
         let requestString = "http://localhost:3001/shift/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
-        self.requestURL = requestURL
+        super.init(requestURL: requestURL)
     }
     
     func fetchShifts(completion: @escaping(Result<[Shift], ApiRequestError>) -> Void) {
@@ -63,7 +60,7 @@ struct ShiftRequest {
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
                 print(json!)
-                let shiftResult = try apiHelper.jsonDecoder.decode(ShiftResult.self, from: jsonData)
+                let shiftResult = try self.apiHelper.jsonDecoder.decode(ShiftResult.self, from: jsonData)
                 
                 if shiftResult.error != nil || shiftResult.shifts == nil {
                     completion(.failure(.requestFailed))
@@ -78,43 +75,23 @@ struct ShiftRequest {
         dataTask.resume()
     }
     
-    //TODO: save shift object with body for clocking in/out
-    func setShift(shift: Shift, completion: @escaping(Result<Bool, ApiRequestError>) -> Void) {
-        
-        var request = apiHelper.createPostRequest(url: requestURL)
-        
+    func refreshShifts() async -> [Shift]? {
         do {
-            print(shift)
-            let shiftData = try apiHelper.jsonEncoder.encode(shift)
-            print(shiftData)
-            request.httpBody = shiftData
+            let urlRequest = URLRequest(url: requestURL)
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            guard (response as! HTTPURLResponse).statusCode == 200 else {
+                print("Error refreshing shifts.")
+                return nil
+            }
+            let shiftResult = try self.apiHelper.jsonDecoder.decode(ShiftResult.self, from: data)
+            if shiftResult.error != nil || shiftResult.shifts == nil {
+                return nil
+            } else {
+                return shiftResult.shifts
+            }
         } catch {
-            print(error)
-            completion(.failure(.cannotEncodeData))
-            return
+            print("Error refreshing shifts.")
+            return nil
         }
-        
-        let dataTask = URLSession.shared.dataTask(with: request) {data, _, _ in
-            guard let jsonData = data else {
-                completion(.failure(.noData))
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
-                print(json!)
-                let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
-                
-                if updateResultJson.error != nil || updateResultJson.updateResult == nil{
-                    completion(.failure(.requestFailed))
-                } else {
-                    completion(.success(updateResultJson.updateResult!.affectedRows > 0))
-                }
-            } catch {
-                print(error)
-                completion(.failure(.cannotProcessData))
-            }
-        }
-        dataTask.resume()
     }
 }

@@ -24,6 +24,7 @@
 		92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D03286AB92900957E50 /* TipSheetCell.swift */; };
 		92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D05286ABA0A00957E50 /* YourTipsCell.swift */; };
 		92B11731289D72880085CE68 /* UpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B11730289D72880085CE68 /* UpdateResult.swift */; };
+		92B1173328A4277F0085CE68 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173228A4277F0085CE68 /* Request.swift */; };
 		92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */; };
 		92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */; };
 		92BE6CB22889DE3C00B55963 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB12889DE3C00B55963 /* Employee.swift */; };
@@ -84,6 +85,7 @@
 		92A93D03286AB92900957E50 /* TipSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetCell.swift; sourceTree = "<group>"; };
 		92A93D05286ABA0A00957E50 /* YourTipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsCell.swift; sourceTree = "<group>"; };
 		92B11730289D72880085CE68 /* UpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateResult.swift; sourceTree = "<group>"; };
+		92B1173228A4277F0085CE68 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
 		92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeRequest.swift; sourceTree = "<group>"; };
 		92BE6CB12889DE3C00B55963 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */,
 				92BE6CB32889DF8600B55963 /* ShiftRequest.swift */,
 				92A5225728937F3700FEEC2F /* ApiHelper.swift */,
+				92B1173228A4277F0085CE68 /* Request.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */,
 				92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */,
 				92A5225828937F3700FEEC2F /* ApiHelper.swift in Sources */,
+				92B1173328A4277F0085CE68 /* Request.swift in Sources */,
 				92B11731289D72880085CE68 /* UpdateResult.swift in Sources */,
 				928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */,
 				92C72BB3286AAD7C0030FE03 /* ProfileViewController.swift in Sources */,
