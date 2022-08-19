@@ -12,6 +12,9 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableview: UITableView!
     
+    var shiftsDict = [Date : [Shift]]()
+    var cumulatedShifts = [CumulativeShift]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,10 +23,44 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
             switch result {
             case .failure(let error):
                 print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
+                }
             case .success(let shifts):
                 print(shifts)
+                let filledShifts = shifts.filter { shift in shift.tips != nil }
+                DispatchQueue.main.async {
+                    self?.sortAndCumulateShifts(shifts: filledShifts)
+                }
+                
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // deselect the selected row if any
+        let selectedRow: IndexPath? = tableview.indexPathForSelectedRow
+        if let selectedRow = selectedRow {
+            tableview.deselectRow(at: selectedRow, animated: true)
+        }
+    }
+    
+    func sortAndCumulateShifts(shifts: [Shift]) {
+        for shift in shifts {
+            shiftsDict[shift.date] = shiftsDict[shift.date] == nil ? [Shift]() : shiftsDict[shift.date]
+            shiftsDict[shift.date]?.append(shift)
+        }
+        for key in shiftsDict.keys {
+            var cumShift = CumulativeShift(date: key, tips: 0.0)
+            for shift in shiftsDict[key]! {
+                cumShift.tips += shift.tips!
+            }
+            cumulatedShifts.append(cumShift)
+        }
+        cumulatedShifts.sort(by: { $0.date > $1.date })
+        tableview.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -31,11 +68,22 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return cumulatedShifts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "YourTipsCell", for: indexPath) as! YourTipsCell
+        cell.dateLabel.text = createDateFormatter(withFormat: "MM/dd/YYYY").string(from: cumulatedShifts[indexPath.row].date)
+        cell.tipsLabel.text = createCurrencyFormatter().string(from: cumulatedShifts[indexPath.row].tips as NSNumber)
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "YourTipsDetailController") as! YourTipsDetailController
+        detailVC.shiftsDict = shiftsDict
+        detailVC.cumulatedShift = cumulatedShifts[indexPath.row]
+        
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

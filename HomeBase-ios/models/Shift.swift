@@ -33,3 +33,8 @@ struct IndividualShift {
     var clockDirection: String
     var totalShiftTime: String
 }
+
+struct CumulativeShift {
+    var date: Date
+    var tips: Double
+}

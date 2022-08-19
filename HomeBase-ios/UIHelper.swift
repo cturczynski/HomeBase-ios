@@ -33,6 +33,12 @@ public func createDateFormatter(withFormat: String) -> DateFormatter {
     return dateFormatter
 }
 
+public func createCurrencyFormatter() -> NumberFormatter {
+    let numFormatter = NumberFormatter()
+    numFormatter.numberStyle = .currency
+    return numFormatter
+}
+
 public func formatPhoneNumber(phone: String) -> String {
     if phone.count < 10 {
         return phone
