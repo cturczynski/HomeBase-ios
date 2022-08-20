@@ -50,3 +50,9 @@ public func formatPhoneNumber(phone: String) -> String {
     let phoneString = "(" + first3 + ") " + next3 + "-" + last4
     return phoneString
 }
+
+public func calculateShiftHours(inTime: Date, outTime: Date) -> Double{
+    let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: inTime, to: outTime)
+    let diff = Double(diffComponents.hour!) + Double(diffComponents.minute!)/60.0
+    return diff
+}

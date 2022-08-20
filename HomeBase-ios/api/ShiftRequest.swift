@@ -24,13 +24,13 @@ class ShiftRequest: Request{
                 requestString.append("employee=\(employee)&")
             }
             if let date = date {
-                requestString.append("date=\"\(dateFormatter.string(from: date))\"&")
+                requestString.append("date='\(dateFormatter.string(from: date))'&")
             }
             if let start = start {
-                requestString.append("start=\"\(dateFormatter.string(from: start))\"&")
+                requestString.append("start='\(dateFormatter.string(from: start))'&")
             }
             if let end = end {
-                requestString.append("end=\"\(dateFormatter.string(from: end))\"")
+                requestString.append("end='\(dateFormatter.string(from: end))'")
             }
         }
         if requestString.last == "&" {

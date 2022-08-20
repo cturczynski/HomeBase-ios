@@ -28,7 +28,7 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
                 }
             case .success(let shifts):
                 print(shifts)
-                let filledShifts = shifts.filter { shift in shift.tips != nil }
+                let filledShifts = shifts.filter { $0.tips != nil }
                 DispatchQueue.main.async {
                     self?.sortAndCumulateShifts(shifts: filledShifts)
                 }

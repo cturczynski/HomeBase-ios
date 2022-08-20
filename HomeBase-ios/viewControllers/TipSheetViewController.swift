@@ -13,9 +13,50 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var totalTipsAmountLabel: UILabel!
     
+    var displayShifts = [Shift]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let testDate = createDateFormatter(withFormat: "yyyy-MM-dd").date(from: "2022-08-11")
+        ShiftRequest.init(id: nil, employee: nil, date: testDate, start: nil, end: nil).fetchShifts { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
+                }
+            case .success(let shifts):
+                DispatchQueue.main.async {
+                    self?.sortShifts(shifts: shifts)
+                }
+            }
+        }
+    }
+    
+    func sortShifts(shifts: [Shift]) {
+        var filledShifts = shifts.filter { shift in
+            shift.clockIn != nil && shift.clockOut != nil && shift.tips != nil
+        }
+        filledShifts.sort(by: { $0.clockIn! > $1.clockIn! })
+        displayShifts = filledShifts
+        if !displayShifts.isEmpty {
+            totalTipsAmountLabel.text = createCurrencyFormatter().string(from: (displayShifts[0].totalTips ?? 0) as NSNumber)
+        }
+        tableview.reloadData()
+    }
+    
+    func refreshEmployees() {
+        EmployeeRequest.init(id: nil, username: nil).fetchEmployees { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                DispatchQueue.main.async {
+                    displayAlert("Error", message: "Could not load employee data at this time.", sender: self!)
+                }
+            case .success(let employees):
+                allEmployees = employees
+            }
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -23,11 +64,31 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return displayShifts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TipSheetCell", for: indexPath) as! TipSheetCell
+        let shift = displayShifts[indexPath.row]
+        
+        if let emp = allEmployees?.filter({ $0.id == shift.employeeId }), !emp.isEmpty {
+            cell.empLabel.text = emp[0].name
+        } else {
+            cell.empLabel.text = String(shift.employeeId)
+        }
+        
+        let dateFormatter = createDateFormatter(withFormat: "h:mm a")
+        cell.inLabel.text = dateFormatter.string(from: shift.clockIn!)
+        cell.outLabel.text = dateFormatter.string(from: shift.clockOut!)
+        cell.hoursLabel.text = String(format: "%.2f", calculateShiftHours(inTime: shift.clockIn!, outTime: shift.clockOut!))
+        cell.tipshareLabel.text = createCurrencyFormatter().string(from: (shift.tips ?? 0) as NSNumber)
+        
+        cell.empLabel.adjustsFontSizeToFitWidth = true
+        cell.inLabel.adjustsFontSizeToFitWidth = true
+        cell.outLabel.adjustsFontSizeToFitWidth = true
+        cell.hoursLabel.adjustsFontSizeToFitWidth = true
+        cell.tipshareLabel.adjustsFontSizeToFitWidth = true
+        
         return cell
     }
 }

@@ -27,9 +27,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     }
     
     func makeIndividualShifts() {
-        var shifts = currentUserShifts?.filter({ shift in
-            return shift.clockIn != nil
-        })
+        var shifts = currentUserShifts?.filter({ $0.clockIn != nil })
         shifts?.sort(by: { (lhs, rhs) in
             if lhs.date == rhs.date {
                 return lhs.clockIn! > rhs.clockIn!
@@ -49,7 +47,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     
     func getTodaysShift() {
         var todaysShifts = currentUserShifts?.filter({ shift in
-            return Calendar.current.isDateInToday(shift.date) && shift.clockIn != nil
+            Calendar.current.isDateInToday(shift.date) && shift.clockIn != nil
         })
         if !todaysShifts!.isEmpty {
             todaysShifts?.sort(by: { $0.clockIn! > $1.clockIn! })
@@ -67,8 +65,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         returnShifts.0 = clockIn
         
         if shift.clockOut != nil {
-            let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: shift.clockIn!, to: shift.clockOut!)
-            let diff = Double(diffComponents.hour!) + Double(diffComponents.minute!)/60.0
+            let diff = calculateShiftHours(inTime: shift.clockIn!, outTime: shift.clockOut!)
             let clockOut = IndividualShift.init(date: shift.date, clockTime: shift.clockOut!, clockDirection: "Out", totalShiftTime: String(format: "%.2f", diff))
             returnShifts.1 = clockOut
         }

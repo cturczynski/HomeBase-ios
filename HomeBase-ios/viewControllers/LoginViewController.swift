@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
     @IBAction func signInAction(_ sender: Any) {
         if usernameTextField.text!.count <= 0 { return }
         
-        let employeeRequest = EmployeeRequest.init(id: nil, username: usernameTextField.text)
+        let employeeRequest = EmployeeRequest.init(id: nil, username: nil)
         employeeRequest.fetchEmployees { [weak self] result in
             switch result {
             case .failure(let error):
@@ -31,10 +31,12 @@ class LoginViewController: UIViewController {
                 }
             case .success(let employees):
                 DispatchQueue.main.async {
-                    if employees.isEmpty {
+                    let thisUser = employees.filter { $0.username == self?.usernameTextField.text }
+                    if thisUser.isEmpty {
                         displayAlert("Invalid login", message: "No users registered with that username.", sender: self!)
                     } else {
-                        let employee = employees[0]
+                        let employee = thisUser[0]
+                        allEmployees = employees
                         self?.getUsersShifts(employee: employee)
                     }
                 }

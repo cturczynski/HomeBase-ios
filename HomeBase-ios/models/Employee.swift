@@ -8,6 +8,7 @@
 import Foundation
 
 public var currentUser: Employee?
+public var allEmployees: [Employee]?
 
 struct EmployeeResult: Codable {
     var error: String?
