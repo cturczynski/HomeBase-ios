@@ -25,6 +25,7 @@
 		92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A93D05286ABA0A00957E50 /* YourTipsCell.swift */; };
 		92B11731289D72880085CE68 /* UpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B11730289D72880085CE68 /* UpdateResult.swift */; };
 		92B1173328A4277F0085CE68 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173228A4277F0085CE68 /* Request.swift */; };
+		92B1173628B3E7240085CE68 /* UIImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173528B3E7240085CE68 /* UIImageExt.swift */; };
 		92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */; };
 		92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */; };
 		92BE6CB22889DE3C00B55963 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB12889DE3C00B55963 /* Employee.swift */; };
@@ -86,6 +87,7 @@
 		92A93D05286ABA0A00957E50 /* YourTipsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsCell.swift; sourceTree = "<group>"; };
 		92B11730289D72880085CE68 /* UpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateResult.swift; sourceTree = "<group>"; };
 		92B1173228A4277F0085CE68 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		92B1173528B3E7240085CE68 /* UIImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExt.swift; sourceTree = "<group>"; };
 		92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
 		92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeRequest.swift; sourceTree = "<group>"; };
 		92BE6CB12889DE3C00B55963 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 		928A787C2858FA2600D4C17C /* HomeBase-ios */ = {
 			isa = PBXGroup;
 			children = (
+				92B1173428B3E70E0085CE68 /* Extensions */,
 				92BE6CB02889DE3000B55963 /* models */,
 				92BE6CAD2889DCEB00B55963 /* api */,
 				92BE6CAC2889DCCC00B55963 /* viewControllers */,
@@ -195,6 +198,14 @@
 				928A78A02858FA2900D4C17C /* HomeBase_iosUITestsLaunchTests.swift */,
 			);
 			path = "HomeBase-iosUITests";
+			sourceTree = "<group>";
+		};
+		92B1173428B3E70E0085CE68 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				92B1173528B3E7240085CE68 /* UIImageExt.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		92BE6CAB2889DC8F00B55963 /* tableCells */ = {
@@ -504,6 +515,7 @@
 				92BE6CB62889DF9000B55963 /* Shift.swift in Sources */,
 				92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */,
 				92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */,
+				92B1173628B3E7240085CE68 /* UIImageExt.swift in Sources */,
 				928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */,
 				92C72BB5286AAD8C0030FE03 /* TabBarViewController.swift in Sources */,
 				92C72BAB286AAD360030FE03 /* TimeClockViewController.swift in Sources */,

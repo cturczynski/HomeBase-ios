@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
                 }
             case .success(let employees):
                 DispatchQueue.main.async {
-                    let thisUser = employees.filter { $0.username == self?.usernameTextField.text }
+                    let thisUser = employees.filter { $0.username.lowercased() == self?.usernameTextField.text?.lowercased() }
                     if thisUser.isEmpty {
                         displayAlert("Invalid login", message: "No users registered with that username.", sender: self!)
                     } else {

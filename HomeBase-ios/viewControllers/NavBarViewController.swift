@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NavBarViewController: UIViewController {
+class NavBarViewController: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
