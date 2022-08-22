@@ -116,17 +116,16 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     func clockOutAndUpdateShift() {
         openShift?.clockOut = Date()
         ShiftRequest(action: "update").saveToDb(obj: openShift!) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                endLoadingView()
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
-                }
-            case .success(_):
-                let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
-                self?.timeclockShifts.insert((individualShifts?.1!)!, at: 0)
-                self?.openShift = nil
-                DispatchQueue.main.async {
+                case .success(_):
+                    let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
+                    self?.timeclockShifts.insert((individualShifts?.1!)!, at: 0)
+                    self?.openShift = nil
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
@@ -138,19 +137,18 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         var newShift = Shift(id: 0, date: Date(), employeeId: currentUser!.id, position: position, start: Date(), end: Date(), clockIn: Date(), clockOut: nil, tips: nil, totalTips: nil)
 
         ShiftRequest(action: "create").saveToDb(obj: newShift) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                endLoadingView()
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
-                }
-            case .success(let updateResult):
-                newShift.id = updateResult.insertId ?? 0
-                let individualShifts = self?.individualShiftsFromShift(shift: newShift)
-                self?.timeclockShifts.insert((individualShifts?.0!)!, at: 0)
-                self?.openShift = newShift
-                currentUserShifts?.append(newShift)
-                DispatchQueue.main.async {
+                case .success(let updateResult):
+                    newShift.id = updateResult.insertId ?? 0
+                    let individualShifts = self?.individualShiftsFromShift(shift: newShift)
+                    self?.timeclockShifts.insert((individualShifts?.0!)!, at: 0)
+                    self?.openShift = newShift
+                    currentUserShifts?.append(newShift)
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock Out", for: .normal)
                 }
@@ -160,6 +158,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     
     //get updated shift array for currentUserShifts
     @objc func clockInOutAction() {
+        startLoadingView(controller: self)
         Task {
             let updatedShifts = await ShiftRequest(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil).refreshShifts()
             if updatedShifts == nil {

@@ -21,16 +21,14 @@ class LoginViewController: UIViewController {
     @IBAction func signInAction(_ sender: Any) {
         if usernameTextField.text!.count <= 0 { return }
         
-        let employeeRequest = EmployeeRequest.init(id: nil, username: nil)
-        employeeRequest.fetchEmployees { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+        startLoadingView(controller: self)
+        EmployeeRequest(id: nil, username: nil).fetchEmployees { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not log in at this time. Please try again later or contact support.", sender: self!)
-                }
-            case .success(let employees):
-                DispatchQueue.main.async {
+                case .success(let employees):
                     let thisUser = employees.filter { $0.username.lowercased() == self?.usernameTextField.text?.lowercased() }
                     if thisUser.isEmpty {
                         displayAlert("Invalid login", message: "No users registered with that username.", sender: self!)
@@ -47,14 +45,13 @@ class LoginViewController: UIViewController {
     func getUsersShifts(employee: Employee) {
         let shiftRequest = ShiftRequest(id: nil, employee: employee.id, date: nil, start: nil, end: nil)
         shiftRequest.fetchShifts { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                endLoadingView()
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not load all user data. Please try again later or contact support.", sender: self!)
-                }
-            case .success(let shifts):
-                DispatchQueue.main.async {
+                case .success(let shifts):
                     self?.loginUser(user: employee, shifts: shifts)
                 }
             }
@@ -64,6 +61,6 @@ class LoginViewController: UIViewController {
     func loginUser(user: Employee, shifts: [Shift]) {
         currentUser = user
         currentUserShifts = shifts
-        goToViewController(vcId: "TabBarViewController", fromController: self)
+        makeNewRootController(vcId: "TabBarViewController", fromController: self)
     }
 }

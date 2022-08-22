@@ -26,6 +26,7 @@
 		92B11731289D72880085CE68 /* UpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B11730289D72880085CE68 /* UpdateResult.swift */; };
 		92B1173328A4277F0085CE68 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173228A4277F0085CE68 /* Request.swift */; };
 		92B1173628B3E7240085CE68 /* UIImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173528B3E7240085CE68 /* UIImageExt.swift */; };
+		92B1173A28B4296A0085CE68 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1173928B4296A0085CE68 /* LoadingView.swift */; };
 		92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */; };
 		92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */; };
 		92BE6CB22889DE3C00B55963 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BE6CB12889DE3C00B55963 /* Employee.swift */; };
@@ -88,6 +89,7 @@
 		92B11730289D72880085CE68 /* UpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateResult.swift; sourceTree = "<group>"; };
 		92B1173228A4277F0085CE68 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		92B1173528B3E7240085CE68 /* UIImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExt.swift; sourceTree = "<group>"; };
+		92B1173928B4296A0085CE68 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		92BE6CA6287CEB7000B55963 /* NavBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewController.swift; sourceTree = "<group>"; };
 		92BE6CAE2889DD9D00B55963 /* EmployeeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeRequest.swift; sourceTree = "<group>"; };
 		92BE6CB12889DE3C00B55963 /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				928A787F2858FA2600D4C17C /* SceneDelegate.swift */,
 				92A93CFF286AB37200957E50 /* Position.swift */,
 				9206C48B2894C2EE00F74BE6 /* UIHelper.swift */,
+				92B1173928B4296A0085CE68 /* LoadingView.swift */,
 				928A78832858FA2600D4C17C /* Main.storyboard */,
 				928A78862858FA2800D4C17C /* Assets.xcassets */,
 				928A78882858FA2800D4C17C /* LaunchScreen.storyboard */,
@@ -511,6 +514,7 @@
 				92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */,
 				92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */,
 				92A5225A2894BC0000FEEC2F /* LoginViewController.swift in Sources */,
+				92B1173A28B4296A0085CE68 /* LoadingView.swift in Sources */,
 				9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */,
 				92BE6CB62889DF9000B55963 /* Shift.swift in Sources */,
 				92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */,

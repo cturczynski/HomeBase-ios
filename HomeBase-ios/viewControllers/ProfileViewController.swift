@@ -19,6 +19,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     @IBOutlet weak var startDateLabel: UILabel!
     
     let imagePicker = UIImagePickerController()
+    var chosenImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +35,16 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
             startDateLabel.adjustsFontSizeToFitWidth = true
             
             profileImageView.contentMode = .scaleAspectFit
-            if let picString = currentUser?.profileImageString, let picData = Data(base64Encoded: picString, options: .ignoreUnknownCharacters){
-                profileImageView.image = UIImage(data: picData)
+            if let picString = currentUser?.profileImageString, let picData = Data(base64Encoded: picString, options: .ignoreUnknownCharacters), let image = UIImage(data: picData){
+                chosenImage = image
+                profileImageView.image = chosenImage
             } else {
                 profileImageView.image = UIImage(named: "profile-icon")
             }
         } else {
             currentUserShifts = nil
             allEmployees = nil
-            goToViewController(vcId: "LoginViewController", fromController: self)
+            makeNewRootController(vcId: "LoginViewController", fromController: self)
         }
         
         //add tap gesture to profile pic to edit
@@ -109,7 +111,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         
-        profileImageView.image = croppedImage
+        chosenImage = croppedImage
         let jpegImage = croppedImage.jpegData(compressionQuality: 0.33)! as NSData
         let imageString = jpegImage.base64EncodedString(options: .lineLength64Characters)
         currentUser?.profileImageString = imageString
@@ -119,16 +121,17 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     }
     
     func saveNewUserData() {
+        startLoadingView(controller: self)
         EmployeeRequest.init(action: "update").saveToDb(obj: currentUser!) { [weak self] result in
-            switch(result) {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                endLoadingView()
+                switch(result) {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not save profile image at this time.", sender: self!)
-                }
-            case .success(let updateResult):
-                print(updateResult)
-                DispatchQueue.main.async {
+                case .success(let updateResult):
+                    print(updateResult)
+                    self?.profileImageView.image = self?.chosenImage
                     self?.view.makeToast("Profile image saved.", duration: 2.0, position: CSToastPositionCenter)
                 }
             }
@@ -138,6 +141,6 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     @IBAction func signOutAction(_ sender: Any) {
         currentUser = nil
         currentUserShifts = nil
-        goToViewController(vcId: "LoginViewController", fromController: self)
+        makeNewRootController(vcId: "LoginViewController", fromController: self)
     }
 }

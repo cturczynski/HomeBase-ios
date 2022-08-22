@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 
+public var loadingView : LoadingView?
+
 //easy alert controller function
 public func displayAlert(_ title:String, message:String, sender: UIViewController) {
     let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-    sender.present(alert, animated: true, completion: nil)
+    sender.present(alert, animated: true, completion: { endLoadingView() })
 }
 
 //easy delay making function
@@ -21,10 +23,14 @@ public func delay(_ delay:Double, closure:@escaping ()->()) {
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
-public func goToViewController(vcId: String, fromController: UIViewController) {
+public func makeNewRootController(vcId: String, fromController: UIViewController) {
     guard let vc = fromController.storyboard?.instantiateViewController(withIdentifier: vcId) else {return}
-    vc.modalPresentationStyle = .fullScreen
-    fromController.present(vc, animated: true, completion: nil)
+    
+    let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+    let window = ((windowScene!.delegate as? SceneDelegate)?.window)!
+    window.rootViewController = vc
+    window.makeKeyAndVisible()
+    UIView.transition(with: window, duration: 0.1, options: .transitionCrossDissolve, animations: {}, completion: nil)
 }
 
 public func createDateFormatter(withFormat: String) -> DateFormatter {
@@ -55,4 +61,17 @@ public func calculateShiftHours(inTime: Date, outTime: Date) -> Double{
     let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: inTime, to: outTime)
     let diff = Double(diffComponents.hour!) + Double(diffComponents.minute!)/60.0
     return diff
+}
+
+public func startLoadingView(controller: UIViewController) {
+        loadingView = LoadingView()
+        controller.view.addSubview(loadingView!)
+}
+
+public func endLoadingView() {
+    if loadingView != nil {
+        loadingView!.activityIndicator.stopAnimating()
+        loadingView!.removeFromSuperview()
+        loadingView = nil
+    }
 }
