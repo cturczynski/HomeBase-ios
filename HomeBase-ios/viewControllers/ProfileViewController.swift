@@ -124,7 +124,6 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
         startLoadingView(controller: self)
         EmployeeRequest.init(action: "update").saveToDb(obj: currentUser!) { [weak self] result in
             DispatchQueue.main.async {
-                endLoadingView()
                 switch(result) {
                 case .failure(let error):
                     print(error)
@@ -134,6 +133,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
                     self?.profileImageView.image = self?.chosenImage
                     self?.view.makeToast("Profile image saved.", duration: 2.0, position: CSToastPositionCenter)
                 }
+                endLoadingView()
             }
         }
     }

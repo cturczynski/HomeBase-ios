@@ -46,6 +46,9 @@ public func createCurrencyFormatter() -> NumberFormatter {
 }
 
 public func formatPhoneNumber(phone: String) -> String {
+    if phone == "" {
+        return " "
+    }
     if phone.count < 10 {
         return phone
     }

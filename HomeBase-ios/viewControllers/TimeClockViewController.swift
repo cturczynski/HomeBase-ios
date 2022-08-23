@@ -117,7 +117,6 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         openShift?.clockOut = Date()
         ShiftRequest(action: "update").saveToDb(obj: openShift!) { [weak self] result in
             DispatchQueue.main.async {
-                endLoadingView()
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -129,6 +128,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
+                endLoadingView()
             }
         }
     }
@@ -138,7 +138,6 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
 
         ShiftRequest(action: "create").saveToDb(obj: newShift) { [weak self] result in
             DispatchQueue.main.async {
-                endLoadingView()
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -152,6 +151,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock Out", for: .normal)
                 }
+                endLoadingView()
             }
         }
     }

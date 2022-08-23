@@ -14,21 +14,41 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     @IBOutlet weak var totalTipsAmountLabel: UILabel!
     
     var displayShifts = [Shift]()
+    let refreshControl = UIRefreshControl()
+    let dispatchGroup = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+        tableview.addSubview(refreshControl)
+        getAndSortShifts()
+    }
+    
+    @objc func refreshData() {
+        startLoadingView(controller: self)
+        getAndSortShifts()
+        refreshEmployees()
+        dispatchGroup.notify(queue: .main) {
+            endLoadingView()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    func getAndSortShifts() {
+        dispatchGroup.enter()
         let testDate = createDateFormatter(withFormat: "yyyy-MM-dd").date(from: "2022-08-11")
-        ShiftRequest.init(id: nil, employee: nil, date: testDate, start: nil, end: nil).fetchShifts { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+        let shiftRequest = ShiftRequest.init(id: nil, employee: nil, date: testDate, start: nil, end: nil)
+        shiftRequest.fetchShifts { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
-                }
-            case .success(let shifts):
-                DispatchQueue.main.async {
+                case .success(let shifts):
                     self?.sortShifts(shifts: shifts)
                 }
+                self?.dispatchGroup.leave()
             }
         }
     }
@@ -46,15 +66,17 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     }
     
     func refreshEmployees() {
+        dispatchGroup.enter()
         EmployeeRequest.init(id: nil, username: nil).fetchEmployees { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
                     displayAlert("Error", message: "Could not load employee data at this time.", sender: self!)
+                case .success(let employees):
+                    allEmployees = employees
                 }
-            case .success(let employees):
-                allEmployees = employees
+                self?.dispatchGroup.leave()
             }
         }
     }

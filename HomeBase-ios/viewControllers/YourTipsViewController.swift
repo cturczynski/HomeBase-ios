@@ -14,27 +14,14 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
     
     var shiftsDict = [Date : [Shift]]()
     var cumulatedShifts = [CumulativeShift]()
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let shiftRequest = ShiftRequest.init(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil)
-        shiftRequest.fetchShifts { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                DispatchQueue.main.async {
-                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
-                }
-            case .success(let shifts):
-                print(shifts)
-                let filledShifts = shifts.filter { $0.tips != nil }
-                DispatchQueue.main.async {
-                    self?.sortAndCumulateShifts(shifts: filledShifts)
-                }
-                
-            }
-        }
+        refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
+        tableview.addSubview(refreshControl)
+        getAndSortShifts()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,7 +34,33 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
         }
     }
     
+    @objc func refreshData() {
+        startLoadingView(controller: self)
+        getAndSortShifts()
+    }
+    
+    func getAndSortShifts() {
+        let shiftRequest = ShiftRequest.init(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil)
+        shiftRequest.fetchShifts { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
+                case .success(let shifts):
+                    print(shifts)
+                    let filledShifts = shifts.filter { $0.tips != nil }
+                    self?.sortAndCumulateShifts(shifts: filledShifts)
+                }
+                self?.refreshControl.endRefreshing()
+                endLoadingView()
+            }
+        }
+    }
+    
     func sortAndCumulateShifts(shifts: [Shift]) {
+        shiftsDict = [Date : [Shift]]()
+        cumulatedShifts = [CumulativeShift]()
         for shift in shifts {
             shiftsDict[shift.date] = shiftsDict[shift.date] == nil ? [Shift]() : shiftsDict[shift.date]
             shiftsDict[shift.date]?.append(shift)

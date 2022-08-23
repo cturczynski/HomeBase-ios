@@ -13,15 +13,48 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    var newUser = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     @IBAction func signInAction(_ sender: Any) {
         if usernameTextField.text!.count <= 0 { return }
         
+        newUser = false
         startLoadingView(controller: self)
+        if passwordTextField.text?.lowercased() == "admin" {
+            createAndLoginUser()
+        } else {
+            getAndLoginUser()
+        }
+    }
+    
+    func createAndLoginUser() {
+        let username = usernameTextField.text!.lowercased()
+        let firstLetter: String = (username[username.startIndex].uppercased())
+        let range = username.index(after: username.startIndex)...
+        let restOfName: String = username.count > 1 ? String(username[range]) : ""
+        let name = firstLetter.appending(restOfName)
+        
+        let newEmployee = Employee(id: 0, name: name, phone: "", email: "\(username)@homebase.com", username: username, managerFlag: false, profileImageString: nil, startDate: Date())
+        EmployeeRequest(action: "create").saveToDb(obj: newEmployee) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                    displayAlert("Error", message: "Could not create new user at this time.", sender: self!)
+                case .success(let result):
+                    print(result)
+                    self?.newUser = true
+                    self?.getAndLoginUser()
+                }
+            }
+        }
+    }
+    
+    func getAndLoginUser() {
         EmployeeRequest(id: nil, username: nil).fetchEmployees { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -35,7 +68,11 @@ class LoginViewController: UIViewController {
                     } else {
                         let employee = thisUser[0]
                         allEmployees = employees
-                        self?.getUsersShifts(employee: employee)
+                        if self!.newUser {
+                            self?.loginUser(user: employee, shifts: [Shift]())
+                        } else {
+                            self?.getUsersShifts(employee: employee)
+                        }
                     }
                 }
             }
@@ -46,7 +83,6 @@ class LoginViewController: UIViewController {
         let shiftRequest = ShiftRequest(id: nil, employee: employee.id, date: nil, start: nil, end: nil)
         shiftRequest.fetchShifts { [weak self] result in
             DispatchQueue.main.async {
-                endLoadingView()
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -59,6 +95,7 @@ class LoginViewController: UIViewController {
     }
     
     func loginUser(user: Employee, shifts: [Shift]) {
+        endLoadingView()
         currentUser = user
         currentUserShifts = shifts
         makeNewRootController(vcId: "TabBarViewController", fromController: self)
