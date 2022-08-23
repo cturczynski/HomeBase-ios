@@ -39,13 +39,15 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
         getAndSortShifts()
     }
     
+    //get all of the shifts for our user and only send forward the ones with tips,
+    //as that is only what we are populating in this tableview
     func getAndSortShifts() {
         let shiftRequest = ShiftRequest.init(id: nil, employee: currentUser?.id, date: nil, start: nil, end: nil)
         shiftRequest.fetchShifts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
                 case .success(let shifts):
                     print(shifts)
@@ -58,6 +60,8 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
         }
     }
     
+    //an employee may have multiple complete shifts in a day, so we need to group the shifts by date
+    //and sum the tips for each date. CumulativeShift object captures this grouped sum for the display array
     func sortAndCumulateShifts(shifts: [Shift]) {
         shiftsDict = [Date : [Shift]]()
         cumulatedShifts = [CumulativeShift]()

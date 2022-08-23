@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    //newUser flag to save time not retrieving shifts if we know we don't need to
     var newUser = false
     
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class LoginViewController: UIViewController {
         
         newUser = false
         startLoadingView(controller: self)
+        //allow for shortcut for making new users from app
         if passwordTextField.text?.lowercased() == "admin" {
             createAndLoginUser()
         } else {
@@ -39,14 +41,15 @@ class LoginViewController: UIViewController {
         let name = firstLetter.appending(restOfName)
         
         let newEmployee = Employee(id: 0, name: name, phone: "", email: "\(username)@homebase.com", username: username, managerFlag: false, profileImageString: nil, startDate: Date())
+        
         EmployeeRequest(action: "create").saveToDb(obj: newEmployee) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not create new user at this time.", sender: self!)
                 case .success(let result):
-                    print(result)
+                    print("New user update result: \n\(result)")
                     self?.newUser = true
                     self?.getAndLoginUser()
                 }
@@ -54,12 +57,15 @@ class LoginViewController: UIViewController {
         }
     }
     
+    //we want a list of all the employees for later in the app (allEmployees),
+    //so let's just grab all of them, and then just verify and pick our desired user for currentUser
+    //(Yes, I know this is not how we would do it with a real auth system)
     func getAndLoginUser() {
         EmployeeRequest(id: nil, username: nil).fetchEmployees { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not log in at this time. Please try again later or contact support.", sender: self!)
                 case .success(let employees):
                     let thisUser = employees.filter { $0.username.lowercased() == self?.usernameTextField.text?.lowercased() }
@@ -79,13 +85,14 @@ class LoginViewController: UIViewController {
         }
     }
     
+    //get all the users shifts for later in the app (currentUserShifts)
     func getUsersShifts(employee: Employee) {
         let shiftRequest = ShiftRequest(id: nil, employee: employee.id, date: nil, start: nil, end: nil)
         shiftRequest.fetchShifts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not load all user data. Please try again later or contact support.", sender: self!)
                 case .success(let shifts):
                     self?.loginUser(user: employee, shifts: shifts)

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//help resize profile image to reduce string size
 extension UIImage {
     func resized(withPercentage percentage: CGFloat) -> UIImage? {
         let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)

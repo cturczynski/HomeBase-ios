@@ -10,6 +10,7 @@ import UIKit
 
 class EmployeeRequest: Request {
     
+    //for SELECT queries
     init(id: Int?, username: String?) {
         var requestString = "http://localhost:3001/employee"
         if (id == nil && username == nil){
@@ -32,6 +33,7 @@ class EmployeeRequest: Request {
         super.init(requestURL: requestURL)
     }
     
+    //for UPDATE/CREATE queries
     init(action: String) {
         let requestString = "http://localhost:3001/employee/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
@@ -41,6 +43,7 @@ class EmployeeRequest: Request {
     
     func fetchEmployees(completion: @escaping(Result<[Employee], ApiRequestError>) -> Void) {
         
+        print("Fetching data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: requestURL) {data, _, _ in
             guard let jsonData = data else {
                 completion(.failure(.noData))
@@ -49,7 +52,7 @@ class EmployeeRequest: Request {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
-                print(json!)
+                print("Retrieved employee result json: \n\(json!)")
                 let employeeResult = try self.apiHelper.jsonDecoder.decode(EmployeeResult.self, from: jsonData)
                 
                 if employeeResult.error != nil || employeeResult.employees == nil{
@@ -58,7 +61,7 @@ class EmployeeRequest: Request {
                     completion(.success(employeeResult.employees!))
                 }
             } catch {
-                print(error)
+                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData))
             }
         }

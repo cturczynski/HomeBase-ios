@@ -35,6 +35,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
         }
     }
     
+    //get all of the shifts for today
     func getAndSortShifts() {
         dispatchGroup.enter()
         let testDate = createDateFormatter(withFormat: "yyyy-MM-dd").date(from: "2022-08-11")
@@ -43,7 +44,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
                 case .success(let shifts):
                     self?.sortShifts(shifts: shifts)
@@ -53,6 +54,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
         }
     }
     
+    //filter down to the relative shifts and sort them in order for easy readability in our display array
     func sortShifts(shifts: [Shift]) {
         var filledShifts = shifts.filter { shift in
             shift.clockIn != nil && shift.clockOut != nil && shift.tips != nil
@@ -65,13 +67,14 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
         tableview.reloadData()
     }
     
+    //want to get fresh employee data for accurate id -> name matching
     func refreshEmployees() {
         dispatchGroup.enter()
         EmployeeRequest.init(id: nil, username: nil).fetchEmployees { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not load employee data at this time.", sender: self!)
                 case .success(let employees):
                     allEmployees = employees
@@ -93,6 +96,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "TipSheetCell", for: indexPath) as! TipSheetCell
         let shift = displayShifts[indexPath.row]
         
+        //match the employeeId so we can have the employees' names here
         if let emp = allEmployees?.filter({ $0.id == shift.employeeId }), !emp.isEmpty {
             cell.empLabel.text = emp[0].name
         } else {

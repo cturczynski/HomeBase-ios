@@ -9,6 +9,7 @@ import Foundation
 
 class ShiftRequest: Request{
     
+    //for SELECT queries
     init(id: Int?, employee: Int?, date: Date?, start: Date?, end: Date?) {
         var requestString = "http://localhost:3001/shift"
         let dateFormatter = createDateFormatter(withFormat: "yyyy-MM-dd")
@@ -42,6 +43,7 @@ class ShiftRequest: Request{
         super.init(requestURL: requestURL)
     }
     
+    //for UPDATE/CREATE queries
     init(action: String) {
         let requestString = "http://localhost:3001/shift/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
@@ -51,6 +53,7 @@ class ShiftRequest: Request{
     
     func fetchShifts(completion: @escaping(Result<[Shift], ApiRequestError>) -> Void) {
         
+        print("Fetching data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: requestURL) {data, _, _ in
             guard let jsonData = data else {
                 completion(.failure(.noData))
@@ -59,7 +62,7 @@ class ShiftRequest: Request{
             
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
-                print(json!)
+                print("Retrieved shift result json: \n\(json!)")
                 let shiftResult = try self.apiHelper.jsonDecoder.decode(ShiftResult.self, from: jsonData)
                 
                 if shiftResult.error != nil || shiftResult.shifts == nil {
@@ -68,15 +71,18 @@ class ShiftRequest: Request{
                     completion(.success(shiftResult.shifts!))
                 }
             } catch {
-                print(error)
+                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData))
             }
         }
         dataTask.resume()
     }
     
+    //a simpler REST call when we don't care about the error types as much
+    //also to try out async/await model
     func refreshShifts() async -> [Shift]? {
         do {
+            print("Fetching data with request URL: \n\(requestURL)")
             let urlRequest = URLRequest(url: requestURL)
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
             guard (response as! HTTPURLResponse).statusCode == 200 else {
@@ -84,13 +90,14 @@ class ShiftRequest: Request{
                 return nil
             }
             let shiftResult = try self.apiHelper.jsonDecoder.decode(ShiftResult.self, from: data)
+            print("Retrieved shift result: \n\(shiftResult)")
             if shiftResult.error != nil || shiftResult.shifts == nil {
                 return nil
             } else {
                 return shiftResult.shifts
             }
         } catch {
-            print("Error refreshing shifts.")
+            print("ERROR refreshing shifts.")
             return nil
         }
     }

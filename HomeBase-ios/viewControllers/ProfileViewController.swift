@@ -34,6 +34,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
             startDateLabel.text = createDateFormatter(withFormat: "MM/dd/yyyy").string(from: user.startDate)
             startDateLabel.adjustsFontSizeToFitWidth = true
             
+            //decode and set profileImageView image if possible
             profileImageView.contentMode = .scaleAspectFit
             if let picString = currentUser?.profileImageString, let picData = Data(base64Encoded: picString, options: .ignoreUnknownCharacters), let image = UIImage(data: picData){
                 chosenImage = image
@@ -42,6 +43,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
                 profileImageView.image = UIImage(named: "profile-icon")
             }
         } else {
+            //something wrong with currentUser object, reset global variables and return to login screen
             currentUserShifts = nil
             allEmployees = nil
             makeNewRootController(vcId: "LoginViewController", fromController: self)
@@ -57,11 +59,13 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        //need to do this here to properly round the imageView
         profileImageView.layer.cornerRadius = self.profileImageView.frame.width/2
         profileImageView.layer.masksToBounds = true
         profileImageView.clipsToBounds = true
     }
     
+    //bring up the alert view options
     @objc func uploadPhoto() {
         let alert:UIAlertController=UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         let cameraAction = UIAlertAction(title: "Take Photo", style: UIAlertAction.Style.default) { UIAlertAction in
@@ -92,6 +96,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
         self.present(alert, animated: true, completion: nil)
     }
     
+    //shrink selected image (for data resource saving) and send to the cropper controller
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let chosenImage = (info[.originalImage] as! UIImage).resized(toWidth: 300)!
@@ -109,6 +114,8 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
         imagePicker.popViewController(animated: true)
     }
     
+    //the croppedImage is our final selected image
+    //compress it and encode it to string, then save to user object
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         
         chosenImage = croppedImage
@@ -126,10 +133,11 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
             DispatchQueue.main.async {
                 switch(result) {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not save profile image at this time.", sender: self!)
                 case .success(let updateResult):
-                    print(updateResult)
+                    //new profile pic was successfully saved, so we can change the UI and notify user
+                    print("User update result: \n\(updateResult)")
                     self?.profileImageView.image = self?.chosenImage
                     self?.view.makeToast("Profile image saved.", duration: 2.0, position: CSToastPositionCenter)
                 }

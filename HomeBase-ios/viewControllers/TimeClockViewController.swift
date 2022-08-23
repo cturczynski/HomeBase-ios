@@ -26,6 +26,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         makeIndividualShifts()
     }
     
+    //get the individual shifts from all the user's shifts, and append them to our display array in order
     func makeIndividualShifts() {
         var shifts = currentUserShifts?.filter({ $0.clockIn != nil })
         shifts?.sort(by: { (lhs, rhs) in
@@ -45,6 +46,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         tableview.reloadData()
     }
     
+    //need to see if there's a current shift already started for today, and change UI accordingly
     func getTodaysShift() {
         var todaysShifts = currentUserShifts?.filter({ shift in
             Calendar.current.isDateInToday(shift.date) && shift.clockIn != nil
@@ -58,6 +60,8 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         }
     }
     
+    //create tuple of the individual in-shift and the out-shift for a shift
+    //each used for their own row in the shift history
     func individualShiftsFromShift(shift: Shift) -> (IndividualShift?, IndividualShift?) {
         var returnShifts : (IndividualShift?, IndividualShift?) = (nil, nil)
         
@@ -113,18 +117,21 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    //when we have an open shift we need to clock out of
     func clockOutAndUpdateShift() {
         openShift?.clockOut = Date()
         ShiftRequest(action: "update").saveToDb(obj: openShift!) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
                 case .success(_):
+                    //add shift to display array and update other related variablesUI
                     let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
                     self?.timeclockShifts.insert((individualShifts?.1!)!, at: 0)
                     self?.openShift = nil
+                    
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock In", for: .normal)
                 }
@@ -133,6 +140,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         }
     }
     
+    //no currently open shift, so create a new one and clock in
     func clockInNewShift() {
         var newShift = Shift(id: 0, date: Date(), employeeId: currentUser!.id, position: position, start: Date(), end: Date(), clockIn: Date(), clockOut: nil, tips: nil, totalTips: nil)
 
@@ -140,14 +148,16 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
                 case .success(let updateResult):
+                    //add shift to display array and update other related variablesUI
                     newShift.id = updateResult.insertId ?? 0
                     let individualShifts = self?.individualShiftsFromShift(shift: newShift)
                     self?.timeclockShifts.insert((individualShifts?.0!)!, at: 0)
                     self?.openShift = newShift
                     currentUserShifts?.append(newShift)
+                    
                     self!.tableview.reloadData()
                     self?.clockInButton.setTitle("Clock Out", for: .normal)
                 }
@@ -156,7 +166,9 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         }
     }
     
-    //get updated shift array for currentUserShifts
+    //get updated shift array for currentUserShifts before making any updates
+    //using async/await pattern here because we do not care as much about the error, just want fresh data
+    //also wanted to work with Task
     @objc func clockInOutAction() {
         startLoadingView(controller: self)
         Task {

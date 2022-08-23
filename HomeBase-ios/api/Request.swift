@@ -22,9 +22,8 @@ class Request {
         var request = apiHelper.createPostRequest(url: requestURL)
         
         do {
-            print(obj)
+            print("Saving obj: \n\(obj)")
             let shiftData = try apiHelper.jsonEncoder.encode(obj)
-            print(shiftData)
             request.httpBody = shiftData
         } catch {
             print(error)
@@ -40,7 +39,7 @@ class Request {
             
             do {
                 let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any]
-                print(json!)
+                print("Retrieved update result json: \n\(json!)")
                 let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
                 
                 if updateResultJson.error != nil || updateResultJson.updateResult == nil{
@@ -51,7 +50,7 @@ class Request {
                     completion(.success(updateResultJson.updateResult!))
                 }
             } catch {
-                print(error)
+                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData))
             }
         }

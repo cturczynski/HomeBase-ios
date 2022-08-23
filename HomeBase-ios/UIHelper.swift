@@ -23,6 +23,8 @@ public func delay(_ delay:Double, closure:@escaping ()->()) {
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
+//this is important so we don't just keep stacking viewcontrollers on top of each other
+//if we login logout login logout... all in the same session
 public func makeNewRootController(vcId: String, fromController: UIViewController) {
     guard let vc = fromController.storyboard?.instantiateViewController(withIdentifier: vcId) else {return}
     
