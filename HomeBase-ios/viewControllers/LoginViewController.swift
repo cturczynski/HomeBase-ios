@@ -48,8 +48,7 @@ class LoginViewController: UIViewController {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
                     displayAlert("Error", message: "Could not create new user at this time.", sender: self!)
-                case .success(let result):
-                    print("New user update result: \n\(result)")
+                case .success(_):
                     self?.newUser = true
                     self?.getAndLoginUser()
                 }
