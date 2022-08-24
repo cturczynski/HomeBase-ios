@@ -48,7 +48,7 @@ class YourTipsViewController: NavBarViewController, UITableViewDelegate, UITable
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
+                    displayAlert("Error", message: "Could not load shift data at this time.\n\(error)", sender: self!)
                 case .success(let shifts):
                     let filledShifts = shifts.filter { $0.tips != nil }
                     self?.sortAndCumulateShifts(shifts: filledShifts)

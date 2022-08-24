@@ -125,7 +125,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not clock out of existing open shift. Please contact support.", sender: self!)
+                    displayAlert("Error", message: "Could not clock out of existing open shift.\n\(error)", sender: self!)
                 case .success(_):
                     //add shift to display array and update other related variablesUI
                     let individualShifts = self?.individualShiftsFromShift(shift: (self?.openShift!)!)
@@ -149,7 +149,7 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not clock in new shift. Please contact support.", sender: self!)
+                    displayAlert("Error", message: "Could not clock in new shift.\n\(error)", sender: self!)
                 case .success(let updateResult):
                     //add shift to display array and update other related variablesUI
                     newShift.id = updateResult.insertId ?? 0

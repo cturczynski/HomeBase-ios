@@ -46,7 +46,7 @@ class EmployeeRequest: Request {
         print("Fetching data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: requestURL) {data, _, _ in
             guard let jsonData = data else {
-                completion(.failure(.noData))
+                completion(.failure(.noData(description: "")))
                 return
             }
             
@@ -56,13 +56,13 @@ class EmployeeRequest: Request {
                 let employeeResult = try self.apiHelper.jsonDecoder.decode(EmployeeResult.self, from: jsonData)
                 
                 if employeeResult.error != nil || employeeResult.employees == nil{
-                    completion(.failure(.requestFailed))
+                    completion(.failure(.requestFailed(description: employeeResult.error ?? "")))
                 } else {
                     completion(.success(employeeResult.employees!))
                 }
             } catch {
                 print("ERROR: \n\(error)")
-                completion(.failure(.cannotProcessData))
+                completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }
         dataTask.resume()

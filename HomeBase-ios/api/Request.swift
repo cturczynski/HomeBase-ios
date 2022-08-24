@@ -27,14 +27,14 @@ class Request {
             request.httpBody = shiftData
         } catch {
             print("ERROR: \n\(error)")
-            completion(.failure(.cannotEncodeData))
+            completion(.failure(.cannotEncodeData(description: error.localizedDescription)))
             return
         }
         
         print("Fetching data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: request) {data, _, _ in
             guard let jsonData = data else {
-                completion(.failure(.noData))
+                completion(.failure(.noData(description: "")))
                 return
             }
             
@@ -44,15 +44,15 @@ class Request {
                 let updateResultJson = try ApiHelper(snakeCase: false).jsonDecoder.decode(UpdateResultJson.self, from: jsonData)
                 
                 if updateResultJson.error != nil || updateResultJson.updateResult == nil{
-                    completion(.failure(.requestFailed))
+                    completion(.failure(.requestFailed(description: updateResultJson.error ?? "")))
                 } else if updateResultJson.updateResult!.affectedRows <= 0 {
-                    completion(.failure(.noMatchingResults))
+                    completion(.failure(.noMatchingResults(description: "")))
                 } else {
                     completion(.success(updateResultJson.updateResult!))
                 }
             } catch {
                 print("ERROR: \n\(error)")
-                completion(.failure(.cannotProcessData))
+                completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }
         dataTask.resume()

@@ -134,7 +134,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
                 switch(result) {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not save profile image at this time.", sender: self!)
+                    displayAlert("Error", message: "Could not save profile image at this time.\n\(error)", sender: self!)
                 case .success( _):
                     //new profile pic was successfully saved, so we can change the UI and notify user
                     self?.profileImageView.image = self?.chosenImage

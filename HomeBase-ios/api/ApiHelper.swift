@@ -10,11 +10,11 @@ import Foundation
 public let BASE_URL = "https://homebase-ct.herokuapp.com"
 
 public enum ApiRequestError: Error {
-    case noData
-    case requestFailed
-    case cannotProcessData
-    case cannotEncodeData
-    case noMatchingResults
+    case noData(description: String)
+    case requestFailed(description: String)
+    case cannotProcessData(description: String)
+    case cannotEncodeData(description: String)
+    case noMatchingResults(description: String)
 }
 
 class ApiHelper {

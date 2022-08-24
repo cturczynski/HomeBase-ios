@@ -49,7 +49,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not load shift data at this time.", sender: self!)
+                    displayAlert("Error", message: "Could not load shift data at this time.\n\(error)", sender: self!)
                 case .success(let shifts):
                     self?.sortShifts(shifts: shifts)
                 }
@@ -77,7 +77,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not load employee data at this time.", sender: self!)
+                    displayAlert("Error", message: "Could not load employee data at this time.\n\(error)", sender: self!)
                 case .success(let employees):
                     allEmployees = employees
                 }

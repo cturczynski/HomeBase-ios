@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not create new user at this time.", sender: self!)
+                    displayAlert("Error", message: "Could not create new user at this time.\n\(error)", sender: self!)
                 case .success(_):
                     self?.newUser = true
                     self?.getAndLoginUser()
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController {
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not log in at this time. Please try again later or contact support.", sender: self!)
+                    displayAlert("Error", message: "Could not log in at this time.\n\(error)", sender: self!)
                 case .success(let employees):
                     let thisUser = employees.filter { $0.username.lowercased() == self?.usernameTextField.text?.lowercased() }
                     if thisUser.isEmpty {
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
                 switch result {
                 case .failure(let error):
                     print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not load all user data. Please try again later or contact support.", sender: self!)
+                    displayAlert("Error", message: "Could not load all user data.\n\(error)", sender: self!)
                 case .success(let shifts):
                     self?.loginUser(user: employee, shifts: shifts)
                 }

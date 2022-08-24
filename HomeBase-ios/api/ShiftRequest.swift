@@ -56,7 +56,7 @@ class ShiftRequest: Request{
         print("Fetching data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: requestURL) {data, _, _ in
             guard let jsonData = data else {
-                completion(.failure(.noData))
+                completion(.failure(.noData(description: "")))
                 return
             }
             
@@ -66,13 +66,13 @@ class ShiftRequest: Request{
                 let shiftResult = try self.apiHelper.jsonDecoder.decode(ShiftResult.self, from: jsonData)
                 
                 if shiftResult.error != nil || shiftResult.shifts == nil {
-                    completion(.failure(.requestFailed))
+                    completion(.failure(.requestFailed(description: shiftResult.error ?? "")))
                 } else {
                     completion(.success(shiftResult.shifts!))
                 }
             } catch {
                 print("ERROR: \n\(error)")
-                completion(.failure(.cannotProcessData))
+                completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }
         dataTask.resume()
