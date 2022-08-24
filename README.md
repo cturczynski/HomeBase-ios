@@ -6,6 +6,8 @@ HomeBase is a practice project that I made to work on my new React.js and Node.j
 * MySQL database
 * __iOS application__
 
+The React & Node app can be found in my other repository [here](https://github.com/cturczynski/HomeBase).
+
 The node backend serves API endpoints to both the web app and the iOS app to access the database. This component, the iOS application was built for these functionality goals:
 * Allow employees to clock in/out and see their timeclock history (Timeclock tab)
 * Provide a tipsheet for the current day so the only math the employees have to do is counting out the money at the end of the day (Tip Sheet tab)
