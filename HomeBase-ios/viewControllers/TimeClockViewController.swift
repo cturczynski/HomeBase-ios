@@ -65,12 +65,12 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
     func individualShiftsFromShift(shift: Shift) -> (IndividualShift?, IndividualShift?) {
         var returnShifts : (IndividualShift?, IndividualShift?) = (nil, nil)
         
-        let clockIn = IndividualShift.init(date: shift.date, clockTime: shift.clockIn!, clockDirection: "In", totalShiftTime: "")
+        let clockIn = IndividualShift.init(date: shift.clockIn!, clockTime: shift.clockIn!, clockDirection: "In", totalShiftTime: "")
         returnShifts.0 = clockIn
         
         if shift.clockOut != nil {
             let diff = calculateShiftHours(inTime: shift.clockIn!, outTime: shift.clockOut!)
-            let clockOut = IndividualShift.init(date: shift.date, clockTime: shift.clockOut!, clockDirection: "Out", totalShiftTime: String(format: "%.2f", diff))
+            let clockOut = IndividualShift.init(date: shift.clockOut!, clockTime: shift.clockOut!, clockDirection: "Out", totalShiftTime: String(format: "%.2f", diff))
             returnShifts.1 = clockOut
         }
         
