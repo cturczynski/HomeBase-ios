@@ -7,6 +7,8 @@
 
 import Foundation
 
+public let BASE_URL = "https://homebase-ct.herokuapp.com"
+
 public enum ApiRequestError: Error {
     case noData
     case requestFailed

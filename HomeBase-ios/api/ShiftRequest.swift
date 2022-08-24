@@ -11,7 +11,7 @@ class ShiftRequest: Request{
     
     //for SELECT queries
     init(id: Int?, employee: Int?, date: Date?, start: Date?, end: Date?) {
-        var requestString = "http://localhost:3001/shift"
+        var requestString = "\(BASE_URL)/shift"
         let dateFormatter = createDateFormatter(withFormat: "yyyy-MM-dd")
         
         if (id == nil && employee == nil && date == nil && start == nil && end == nil) {
@@ -45,7 +45,7 @@ class ShiftRequest: Request{
     
     //for UPDATE/CREATE queries
     init(action: String) {
-        let requestString = "http://localhost:3001/shift/\(action)"
+        let requestString = "\(BASE_URL)/shift/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
         super.init(requestURL: requestURL)

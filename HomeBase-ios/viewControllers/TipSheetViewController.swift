@@ -11,14 +11,19 @@ import UIKit
 class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var totalTipsAmountLabel: UILabel!
     
     var displayShifts = [Shift]()
     let refreshControl = UIRefreshControl()
     let dispatchGroup = DispatchGroup()
+    var tipSheetDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateLabel.text = createDateFormatter(withFormat: "yyyy-MM-dd").string(from: tipSheetDate)
+        dateLabel.adjustsFontSizeToFitWidth = true
         
         refreshControl.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         tableview.addSubview(refreshControl)
@@ -38,8 +43,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     //get all of the shifts for today
     func getAndSortShifts() {
         dispatchGroup.enter()
-        let testDate = createDateFormatter(withFormat: "yyyy-MM-dd").date(from: "2022-08-11")
-        let shiftRequest = ShiftRequest.init(id: nil, employee: nil, date: testDate, start: nil, end: nil)
+        let shiftRequest = ShiftRequest.init(id: nil, employee: nil, date: tipSheetDate, start: nil, end: nil)
         shiftRequest.fetchShifts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -61,9 +65,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
         }
         filledShifts.sort(by: { $0.clockIn! > $1.clockIn! })
         displayShifts = filledShifts
-        if !displayShifts.isEmpty {
-            totalTipsAmountLabel.text = createCurrencyFormatter().string(from: (displayShifts[0].totalTips ?? 0) as NSNumber)
-        }
+        totalTipsAmountLabel.text = displayShifts.isEmpty ? createCurrencyFormatter().string(from: 0 as NSNumber) : createCurrencyFormatter().string(from: (displayShifts[0].totalTips ?? 0) as NSNumber)
         tableview.reloadData()
     }
     
@@ -82,6 +84,21 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
                 self?.dispatchGroup.leave()
             }
         }
+    }
+    
+    func changeDateAndRefresh(byDays: Int) {
+        tipSheetDate = Calendar.current.date(byAdding: .day, value: byDays, to: tipSheetDate)!
+        dateLabel.text = createDateFormatter(withFormat: "yyyy-MM-dd").string(from: tipSheetDate)
+        dateLabel.adjustsFontSizeToFitWidth = true
+        refreshData()
+    }
+    
+    @IBAction func backDateButton(_ sender: Any) {
+        changeDateAndRefresh(byDays: -1)
+    }
+    
+    @IBAction func forwardDateButton(_ sender: Any) {
+        changeDateAndRefresh(byDays: 1)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

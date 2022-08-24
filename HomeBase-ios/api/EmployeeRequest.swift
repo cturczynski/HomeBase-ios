@@ -12,7 +12,7 @@ class EmployeeRequest: Request {
     
     //for SELECT queries
     init(id: Int?, username: String?) {
-        var requestString = "http://localhost:3001/employee"
+        var requestString = "\(BASE_URL)/employee"
         if (id == nil && username == nil){
             requestString.append("/all")
         } else {
@@ -35,7 +35,7 @@ class EmployeeRequest: Request {
     
     //for UPDATE/CREATE queries
     init(action: String) {
-        let requestString = "http://localhost:3001/employee/\(action)"
+        let requestString = "\(BASE_URL)/employee/\(action)"
         guard let requestURL = URL(string: requestString) else {fatalError()}
         
         super.init(requestURL: requestURL)
