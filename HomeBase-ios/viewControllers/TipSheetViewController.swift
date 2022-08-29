@@ -61,7 +61,7 @@ class TipSheetViewController: NavBarViewController, UITableViewDelegate, UITable
     //filter down to the relative shifts and sort them in order for easy readability in our display array
     func sortShifts(shifts: [Shift]) {
         var filledShifts = shifts.filter { shift in
-            shift.clockIn != nil && shift.clockOut != nil && shift.tips != nil
+            shift.clockIn != nil && shift.clockOut != nil && shift.tips != nil && shift.position != .manager
         }
         filledShifts.sort(by: { $0.clockIn! > $1.clockIn! })
         displayShifts = filledShifts
