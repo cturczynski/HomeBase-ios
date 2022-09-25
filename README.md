@@ -28,6 +28,7 @@ As hoped, I found this project helped me hit many of the standard iOS developmen
 * DispatchQueue
 * DispatchGroup
 * Error handling
+* Generics
 * Appropriate logging
 
 The app can be download and ran as is. Make sure to run "pod install" or "pod update" for the dependencies. The API calls are being served by the node server deployed on Heroku. You can create a new user on the Login screen by inputting your desired username and password "admin". Randomized data will be populated weekly for regular use.
