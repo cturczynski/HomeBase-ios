@@ -54,6 +54,17 @@
                ReferencedContainer = "container:HomeBase-ios.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "921D5D0D28E13D6F005E4BBF"
+               BuildableName = "HomeBase-iosApiTests.xctest"
+               BlueprintName = "HomeBase-iosApiTests"
+               ReferencedContainer = "container:HomeBase-ios.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

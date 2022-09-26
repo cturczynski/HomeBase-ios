@@ -10,6 +10,21 @@ import Foundation
 class LoginViewModel: ViewModel {
     
     var login: (() -> Void)?
+    var employees : [Employee]? {
+        didSet {
+            allEmployees = self.employees
+        }
+    }
+    var user : Employee? {
+        didSet {
+            currentUser = self.user
+        }
+    }
+    var shifts : [Shift]? {
+        didSet {
+            currentUserShifts = self.shifts
+        }
+    }
     
     func createNewUser(user: Employee) {
         EmployeeRequest(action: "create").saveToDb(obj: user) { [weak self] result in
@@ -38,10 +53,10 @@ class LoginViewModel: ViewModel {
                     self?.errorMessage = DisplayError(title: "Invalid login", message: "No users registered with that username.")
                 } else {
                     let employee = thisUser[0]
-                    allEmployees = employees
+                    self?.employees = employees
                     if newUser {
-                        currentUser = employee
-                        currentUserShifts = [Shift]()
+                        self?.user = employee
+                        self?.shifts = [Shift]()
                         self?.login?()
                     } else {
                         self?.getUsersShifts(employee: employee)
@@ -60,8 +75,8 @@ class LoginViewModel: ViewModel {
                 print("ERROR: \n\(error)")
                 self?.errorMessage = DisplayError(title: "Error", message: "Could not load all user data.\n\(error)")
             case .success(let shifts):
-                currentUser = employee
-                currentUserShifts = shifts
+                self?.user = employee
+                self?.shifts = shifts
                 self?.login?()
             }
         }

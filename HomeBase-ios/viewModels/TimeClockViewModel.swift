@@ -25,17 +25,17 @@ class TimeClockViewModel: ViewModel {
     var reloadTable: (() -> Void)?
     
     //get the individual shifts from all the user's shifts, and append them to our display array in order
-    func getShifts() {
+    func getShifts(userShifts: [Shift]) {
         timeclockShifts = [IndividualShift]()
-        var shifts = currentUserShifts?.filter({ $0.clockIn != nil })
-        shifts?.sort(by: { (lhs, rhs) in
+        var shifts = userShifts.filter({ $0.clockIn != nil })
+        shifts.sort(by: { (lhs, rhs) in
             if lhs.date == rhs.date {
                 return lhs.clockIn! > rhs.clockIn!
             }
             return lhs.date > rhs.date
         })
         
-        for shift in shifts! {
+        for shift in shifts {
             let individualShifts = individualShiftsFromShift(shift: shift)
             if individualShifts.1 != nil {
                 timeclockShifts?.append(individualShifts.1!)
@@ -45,14 +45,14 @@ class TimeClockViewModel: ViewModel {
     }
     
     //need to see if there's a current shift already started for today, and change UI accordingly
-    func getTodaysShift() {
-        var todaysShifts = currentUserShifts?.filter({ shift in
+    func getTodaysShift(userShifts: [Shift]) {
+        var todaysShifts = userShifts.filter({ shift in
             Calendar.current.isDateInToday(shift.date) && shift.clockIn != nil
         })
-        if !todaysShifts!.isEmpty {
-            todaysShifts?.sort(by: { $0.clockIn! > $1.clockIn! })
-            if todaysShifts![0].clockOut == nil {
-                openShift = todaysShifts![0]
+        if !todaysShifts.isEmpty {
+            todaysShifts.sort(by: { $0.clockIn! > $1.clockIn! })
+            if todaysShifts[0].clockOut == nil {
+                openShift = todaysShifts[0]
                 clockButtonText = "Clock Out"
             } else {
                 clockButtonText = "Clock In"
@@ -132,8 +132,8 @@ class TimeClockViewModel: ViewModel {
                 return
             } else {
                 currentUserShifts = updatedShifts
-                self.getTodaysShift()
-                self.getShifts()
+                self.getTodaysShift(userShifts: currentUserShifts!)
+                self.getShifts(userShifts: currentUserShifts!)
             }
             if openShift != nil {
                 clockOutAndUpdateShift()

@@ -49,7 +49,7 @@ class TipSheetViewModel: ViewModel {
         var filledShifts = shifts.filter { shift in
             shift.clockIn != nil && shift.clockOut != nil && shift.tips != nil && shift.position != .manager
         }
-        filledShifts.sort(by: { $0.clockIn! > $1.clockIn! })
+        filledShifts.sort(by: { $0.clockIn! < $1.clockIn! })
         displayShifts = filledShifts
     }
     

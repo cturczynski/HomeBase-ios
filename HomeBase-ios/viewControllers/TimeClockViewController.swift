@@ -20,8 +20,8 @@ class TimeClockViewController: NavBarViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         
         initViewModel()
-        timeClockViewModel.getShifts()
-        timeClockViewModel.getTodaysShift()
+        timeClockViewModel.getShifts(userShifts: currentUserShifts!)
+        timeClockViewModel.getTodaysShift(userShifts: currentUserShifts!)
         clockInButton.addTarget(self, action: #selector(self.clockInOutAction), for: .touchUpInside)
     }
     
