@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		34B305C6BAE95AFEC6CE4CC9 /* Pods_HomeBase_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85FAD7C6318619A97C1599B /* Pods_HomeBase_ios.framework */; };
 		9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9206C48B2894C2EE00F74BE6 /* UIHelper.swift */; };
+		921D5CFC28DFEAA7005E4BBF /* LoginVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */; };
+		921D5CFF28E096CD005E4BBF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */; };
+		921D5D0128E096DA005E4BBF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0028E096DA005E4BBF /* LoginViewModel.swift */; };
+		921D5D0328E0BBE4005E4BBF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0228E0BBE4005E4BBF /* ViewModel.swift */; };
+		921D5D0528E0D0D5005E4BBF /* TimeClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0428E0D0D5005E4BBF /* TimeClockViewModel.swift */; };
+		921D5D0728E0E84E005E4BBF /* TipSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0628E0E84E005E4BBF /* TipSheetViewModel.swift */; };
+		921D5D0928E107E3005E4BBF /* YourTipsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0828E107E3005E4BBF /* YourTipsViewModel.swift */; };
 		928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787D2858FA2600D4C17C /* AppDelegate.swift */; };
 		928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787F2858FA2600D4C17C /* SceneDelegate.swift */; };
 		928A78852858FA2600D4C17C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928A78832858FA2600D4C17C /* Main.storyboard */; };
@@ -69,6 +76,13 @@
 		761E4D68A09D14CC07118374 /* Pods_HomeBase_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeBase_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85623ABD65D4517D4098F967 /* Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios-HomeBase-iosUITests/Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9206C48B2894C2EE00F74BE6 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCTests.swift; sourceTree = "<group>"; };
+		921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		921D5D0028E096DA005E4BBF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		921D5D0228E0BBE4005E4BBF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		921D5D0428E0D0D5005E4BBF /* TimeClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockViewModel.swift; sourceTree = "<group>"; };
+		921D5D0628E0E84E005E4BBF /* TipSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetViewModel.swift; sourceTree = "<group>"; };
+		921D5D0828E107E3005E4BBF /* YourTipsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsViewModel.swift; sourceTree = "<group>"; };
 		928A787A2858FA2600D4C17C /* HomeBase-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HomeBase-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A787D2858FA2600D4C17C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928A787F2858FA2600D4C17C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +159,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		921D5CFD28E096BA005E4BBF /* viewModels */ = {
+			isa = PBXGroup;
+			children = (
+				921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */,
+				921D5D0028E096DA005E4BBF /* LoginViewModel.swift */,
+				921D5D0228E0BBE4005E4BBF /* ViewModel.swift */,
+				921D5D0428E0D0D5005E4BBF /* TimeClockViewModel.swift */,
+				921D5D0628E0E84E005E4BBF /* TipSheetViewModel.swift */,
+				921D5D0828E107E3005E4BBF /* YourTipsViewModel.swift */,
+			);
+			path = viewModels;
+			sourceTree = "<group>";
+		};
 		928A78712858FA2600D4C17C = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +197,7 @@
 		928A787C2858FA2600D4C17C /* HomeBase-ios */ = {
 			isa = PBXGroup;
 			children = (
+				921D5CFD28E096BA005E4BBF /* viewModels */,
 				92B1173428B3E70E0085CE68 /* Extensions */,
 				92BE6CB02889DE3000B55963 /* models */,
 				92BE6CAD2889DCEB00B55963 /* api */,
@@ -191,6 +219,7 @@
 		928A78932858FA2900D4C17C /* HomeBase-iosTests */ = {
 			isa = PBXGroup;
 			children = (
+				921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */,
 				928A78942858FA2900D4C17C /* HomeBase_iosTests.swift */,
 			);
 			path = "HomeBase-iosTests";
@@ -518,18 +547,24 @@
 				92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */,
 				92A5225A2894BC0000FEEC2F /* LoginViewController.swift in Sources */,
 				92B1173A28B4296A0085CE68 /* LoadingView.swift in Sources */,
+				921D5D0728E0E84E005E4BBF /* TipSheetViewModel.swift in Sources */,
+				921D5D0328E0BBE4005E4BBF /* ViewModel.swift in Sources */,
 				9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */,
 				92BE6CB62889DF9000B55963 /* Shift.swift in Sources */,
 				92BE6CB42889DF8600B55963 /* ShiftRequest.swift in Sources */,
 				92A93D06286ABA0A00957E50 /* YourTipsCell.swift in Sources */,
+				921D5D0128E096DA005E4BBF /* LoginViewModel.swift in Sources */,
 				92B1173628B3E7240085CE68 /* UIImageExt.swift in Sources */,
 				92B1173C28C93CA40085CE68 /* ApiRequestError.swift in Sources */,
 				928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */,
+				921D5D0528E0D0D5005E4BBF /* TimeClockViewModel.swift in Sources */,
 				92C72BB5286AAD8C0030FE03 /* TabBarViewController.swift in Sources */,
 				92C72BAB286AAD360030FE03 /* TimeClockViewController.swift in Sources */,
 				92BE6CAF2889DD9D00B55963 /* EmployeeRequest.swift in Sources */,
+				921D5D0928E107E3005E4BBF /* YourTipsViewModel.swift in Sources */,
 				92A93D04286AB92900957E50 /* TipSheetCell.swift in Sources */,
 				92A5225828937F3700FEEC2F /* ApiHelper.swift in Sources */,
+				921D5CFF28E096CD005E4BBF /* ProfileViewModel.swift in Sources */,
 				92B1173328A4277F0085CE68 /* Request.swift in Sources */,
 				92B11731289D72880085CE68 /* UpdateResult.swift in Sources */,
 				928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */,
@@ -544,6 +579,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				921D5CFC28DFEAA7005E4BBF /* LoginVCTests.swift in Sources */,
 				928A78952858FA2900D4C17C /* HomeBase_iosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

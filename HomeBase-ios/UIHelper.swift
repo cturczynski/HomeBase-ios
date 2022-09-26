@@ -80,3 +80,9 @@ public func endLoadingView() {
         loadingView = nil
     }
 }
+
+public func signOut(fromController: UIViewController) {
+    currentUser = nil
+    currentUserShifts = nil
+    makeNewRootController(vcId: "LoginViewController", fromController: fromController)
+}

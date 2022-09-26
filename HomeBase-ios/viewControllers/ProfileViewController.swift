@@ -21,9 +21,25 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     let imagePicker = UIImagePickerController()
     var chosenImage = UIImage()
     
+    var profileViewModel : ProfileViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+        initViewModel()
+        imagePicker.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //need to do this here to properly round the imageView
+        profileImageView.layer.cornerRadius = self.profileImageView.frame.width/2
+        profileImageView.layer.masksToBounds = true
+        profileImageView.clipsToBounds = true
+    }
+    
+    func setupUI() {
         if let user = currentUser {
             nameLabel.text = user.name
             nameLabel.adjustsFontSizeToFitWidth = true
@@ -36,7 +52,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
             
             //decode and set profileImageView image if possible
             profileImageView.contentMode = .scaleAspectFit
-            if let picString = currentUser?.profileImageString, let picData = Data(base64Encoded: picString, options: .ignoreUnknownCharacters), let image = UIImage(data: picData){
+            if let picString = user.profileImageString, let picData = Data(base64Encoded: picString, options: .ignoreUnknownCharacters), let image = UIImage(data: picData){
                 chosenImage = image
                 profileImageView.image = chosenImage
             } else {
@@ -44,9 +60,7 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
             }
         } else {
             //something wrong with currentUser object, reset global variables and return to login screen
-            currentUserShifts = nil
-            allEmployees = nil
-            makeNewRootController(vcId: "LoginViewController", fromController: self)
+            signOut(fromController: self)
         }
         
         //add tap gesture to profile pic to edit
@@ -57,12 +71,23 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
         profileImageView.isUserInteractionEnabled = true
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //need to do this here to properly round the imageView
-        profileImageView.layer.cornerRadius = self.profileImageView.frame.width/2
-        profileImageView.layer.masksToBounds = true
-        profileImageView.clipsToBounds = true
+    func initViewModel() {
+        profileViewModel = ProfileViewModel()
+        profileViewModel.displayError = { (title, message) in
+            DispatchQueue.main.async {
+                displayAlert(title, message: message, sender: self)
+            }
+        }
+        profileViewModel.displayToast = { message in
+            DispatchQueue.main.async {
+                self.view.makeToast(message, duration: 2.0, position: CSToastPositionCenter)
+            }
+        }
+        profileViewModel.saveNewImage = {
+            DispatchQueue.main.async {
+                self.profileImageView.image = self.chosenImage
+            }
+        }
     }
     
     //bring up the alert view options
@@ -89,7 +114,6 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
         }
         
         // Add the actions
-        imagePicker.delegate = self
         alert.addAction(cameraAction)
         alert.addAction(libraryAction)
         alert.addAction(cancelAction)
@@ -118,36 +142,22 @@ class ProfileViewController: NavBarViewController, UIImagePickerControllerDelega
     //compress it and encode it to string, then save to user object
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         
-        chosenImage = croppedImage
-        let jpegImage = croppedImage.jpegData(compressionQuality: 0.33)! as NSData
-        let imageString = jpegImage.base64EncodedString(options: .lineLength64Characters)
-        currentUser?.profileImageString = imageString
         dismiss(animated: true) {
-            self.saveNewUserData()
+            startLoadingView(controller: self)
+            self.updateUserImage(image: croppedImage)
         }
     }
     
-    func saveNewUserData() {
-        startLoadingView(controller: self)
-        EmployeeRequest.init(action: "update").saveToDb(obj: currentUser!) { [weak self] result in
-            DispatchQueue.main.async {
-                switch(result) {
-                case .failure(let error):
-                    print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not save profile image at this time.\n\(error)", sender: self!)
-                case .success( _):
-                    //new profile pic was successfully saved, so we can change the UI and notify user
-                    self?.profileImageView.image = self?.chosenImage
-                    self?.view.makeToast("Profile image saved.", duration: 2.0, position: CSToastPositionCenter)
-                }
-                endLoadingView()
-            }
-        }
+    func updateUserImage(image: UIImage) {
+        chosenImage = image
+        let jpegImage = image.jpegData(compressionQuality: 0.33)! as NSData
+        let imageString = jpegImage.base64EncodedString(options: .lineLength64Characters)
+        var user = currentUser
+        user?.profileImageString = imageString
+        profileViewModel.saveNewUserImage(user: user!)
     }
     
     @IBAction func signOutAction(_ sender: Any) {
-        currentUser = nil
-        currentUserShifts = nil
-        makeNewRootController(vcId: "LoginViewController", fromController: self)
+        signOut(fromController: self)
     }
 }

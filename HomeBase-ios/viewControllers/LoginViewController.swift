@@ -13,23 +13,38 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    //newUser flag to save time not retrieving shifts if we know we don't need to
-    var newUser = false
+    var loginViewModel : LoginViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initViewModel()
+    }
+    
+    func initViewModel() {
+        loginViewModel = LoginViewModel()
+        loginViewModel.displayError = { (title, message) in
+            DispatchQueue.main.async {
+                displayAlert(title, message: message, sender: self)
+            }
+        }
+        loginViewModel.login = {
+            DispatchQueue.main.async {
+                endLoadingView()
+                makeNewRootController(vcId: "TabBarViewController", fromController: self)
+            }
+        }
     }
     
     @IBAction func signInAction(_ sender: Any) {
         if usernameTextField.text!.count <= 0 { return }
         
-        newUser = false
         startLoadingView(controller: self)
         //allow for shortcut for making new users from app
         if passwordTextField.text?.lowercased() == "admin" {
             createAndLoginUser()
         } else {
-            getAndLoginUser()
+            loginViewModel.loginUser(username: self.usernameTextField.text!, newUser: false)
         }
     }
     
@@ -42,68 +57,6 @@ class LoginViewController: UIViewController {
         
         let newEmployee = Employee(id: 0, name: name, phone: "", email: "\(username)@homebase.com", username: username, managerFlag: false, profileImageString: nil, startDate: Date())
         
-        EmployeeRequest(action: "create").saveToDb(obj: newEmployee) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not create new user at this time.\n\(error)", sender: self!)
-                case .success(_):
-                    self?.newUser = true
-                    self?.getAndLoginUser()
-                }
-            }
-        }
-    }
-    
-    //we want a list of all the employees for later in the app (allEmployees),
-    //so let's just grab all of them, and then just verify and pick our desired user for currentUser
-    //(Yes, I know this is not how we would do it with a real auth system)
-    func getAndLoginUser() {
-        EmployeeRequest(id: nil, username: nil).fetchEmployees { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not log in at this time.\n\(error)", sender: self!)
-                case .success(let employees):
-                    let thisUser = employees.filter { $0.username.lowercased() == self?.usernameTextField.text?.lowercased() }
-                    if thisUser.isEmpty {
-                        displayAlert("Invalid login", message: "No users registered with that username.", sender: self!)
-                    } else {
-                        let employee = thisUser[0]
-                        allEmployees = employees
-                        if self!.newUser {
-                            self?.loginUser(user: employee, shifts: [Shift]())
-                        } else {
-                            self?.getUsersShifts(employee: employee)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    //get all the users shifts for later in the app (currentUserShifts)
-    func getUsersShifts(employee: Employee) {
-        let shiftRequest = ShiftRequest(id: nil, employee: employee.id, date: nil, start: nil, end: nil)
-        shiftRequest.fetchShifts { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .failure(let error):
-                    print("ERROR: \n\(error)")
-                    displayAlert("Error", message: "Could not load all user data.\n\(error)", sender: self!)
-                case .success(let shifts):
-                    self?.loginUser(user: employee, shifts: shifts)
-                }
-            }
-        }
-    }
-    
-    func loginUser(user: Employee, shifts: [Shift]) {
-        endLoadingView()
-        currentUser = user
-        currentUserShifts = shifts
-        makeNewRootController(vcId: "TabBarViewController", fromController: self)
+        loginViewModel.createNewUser(user: newEmployee)
     }
 }

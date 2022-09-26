@@ -10,27 +10,46 @@ import XCTest
 
 class HomeBase_iosTests: XCTestCase {
 
+    var dateFormatter: DateFormatter!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
+        dateFormatter = createDateFormatter(withFormat: "yyyy-MM-dd")
+
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        try super.tearDownWithError()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testEmployeeRequestInit() {
+        let req = EmployeeRequest(id: 1, username: "casey")
+        XCTAssert(req.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/employee?id=1&username=casey", "URL string not formed correctly")
+        
+        let req2 = EmployeeRequest(id: nil, username: nil)
+        XCTAssert(req2.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/employee/all", "URL string not formed correctly")
+        
+        let req3 = EmployeeRequest(action: "create")
+        XCTAssert(req3.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/employee/create", "URL string not formed correctly")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testShiftRequestInit() {
+        let today = Date()
+        let date = dateFormatter.string(from: today)
+        let req = ShiftRequest(id: 1, employee: 2, date: today, start: today, end: today)
+        XCTAssert(req.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/shift?id=1&employee=2&date='\(date)'&start='\(date)'&end='\(date)'", "URL string not formed correctly")
+        
+        let req2 = ShiftRequest(id: nil, employee: nil, date: nil, start: nil, end: nil)
+        XCTAssert(req2.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/shift/all", "URL string not formed correctly")
+        
+        let req3 = ShiftRequest(action: "update")
+        XCTAssert(req3.requestURL.absoluteString == "https://homebase-ct.herokuapp.com/shift/update", "URL string not formed correctly")
+    }
+    
+    func testPhoneNumberFormatter() {
+        let str = formatPhoneNumber(phone: "1234567890")
+        XCTAssert(str == "(123) 456-7890", "Phone formatter not working")
     }
 
 }
