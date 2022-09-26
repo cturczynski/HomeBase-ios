@@ -23,11 +23,13 @@ As hoped, I found this project helped me hit many of the standard iOS developmen
 * UIImagePickerController
 * REST calls/callbacks
 * Codable/Encodable/Decodable protocols
+* MVVM design pattern
 * Async/Await pattern
 * Tasks
 * DispatchQueue
 * DispatchGroup
 * Error handling
+* Unit Testing
 * Generics
 * Appropriate logging
 
