@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		34B305C6BAE95AFEC6CE4CC9 /* Pods_HomeBase_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85FAD7C6318619A97C1599B /* Pods_HomeBase_ios.framework */; };
 		9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9206C48B2894C2EE00F74BE6 /* UIHelper.swift */; };
-		921D5CFC28DFEAA7005E4BBF /* LoginVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */; };
 		921D5CFF28E096CD005E4BBF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */; };
 		921D5D0128E096DA005E4BBF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0028E096DA005E4BBF /* LoginViewModel.swift */; };
 		921D5D0328E0BBE4005E4BBF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0228E0BBE4005E4BBF /* ViewModel.swift */; };
@@ -76,7 +75,6 @@
 		761E4D68A09D14CC07118374 /* Pods_HomeBase_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeBase_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85623ABD65D4517D4098F967 /* Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios-HomeBase-iosUITests/Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9206C48B2894C2EE00F74BE6 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
-		921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVCTests.swift; sourceTree = "<group>"; };
 		921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		921D5D0028E096DA005E4BBF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		921D5D0228E0BBE4005E4BBF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 		928A78932858FA2900D4C17C /* HomeBase-iosTests */ = {
 			isa = PBXGroup;
 			children = (
-				921D5CFB28DFEAA7005E4BBF /* LoginVCTests.swift */,
 				928A78942858FA2900D4C17C /* HomeBase_iosTests.swift */,
 			);
 			path = "HomeBase-iosTests";
@@ -579,7 +576,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				921D5CFC28DFEAA7005E4BBF /* LoginVCTests.swift in Sources */,
 				928A78952858FA2900D4C17C /* HomeBase_iosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
