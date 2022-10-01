@@ -31,7 +31,7 @@ class Request {
             return
         }
         
-        print("Fetching data with request URL: \n\(requestURL)")
+        print("Saving data with request URL: \n\(requestURL)")
         let dataTask = URLSession.shared.dataTask(with: request) {data, _, _ in
             guard let jsonData = data else {
                 completion(.failure(.noData(description: "")))
