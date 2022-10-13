@@ -26,7 +26,6 @@ class Request {
             let shiftData = try apiHelper.jsonEncoder.encode(obj)
             request.httpBody = shiftData
         } catch {
-            print("ERROR: \n\(error)")
             completion(.failure(.cannotEncodeData(description: error.localizedDescription)))
             return
         }
@@ -51,7 +50,6 @@ class Request {
                     completion(.success(updateResultJson.updateResult!))
                 }
             } catch {
-                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }

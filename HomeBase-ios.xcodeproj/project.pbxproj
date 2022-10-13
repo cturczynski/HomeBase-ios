@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		34B305C6BAE95AFEC6CE4CC9 /* Pods_HomeBase_ios in Frameworks */ = {isa = PBXBuildFile; fileRef = A85FAD7C6318619A97C1599B /* Pods_HomeBase_ios */; };
+		7377B97CD294221D72B14124 /* Pods_HomeBase_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB1ECD2C1062E722258E228 /* Pods_HomeBase_ios.framework */; };
 		9206C48C2894C2EE00F74BE6 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9206C48B2894C2EE00F74BE6 /* UIHelper.swift */; };
 		921D5CFF28E096CD005E4BBF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */; };
 		921D5D0128E096DA005E4BBF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D0028E096DA005E4BBF /* LoginViewModel.swift */; };
@@ -20,6 +21,8 @@
 		921D5D1A28E14C31005E4BBF /* TimeClockViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D1928E14C31005E4BBF /* TimeClockViewModelTests.swift */; };
 		921D5D1C28E15564005E4BBF /* TipSheetViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D1B28E15564005E4BBF /* TipSheetViewModelTests.swift */; };
 		921D5D1E28E15806005E4BBF /* YourTipsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5D1D28E15806005E4BBF /* YourTipsViewModelTests.swift */; };
+		924F2B6028F71498006183CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 924F2B5F28F71498006183CB /* GoogleService-Info.plist */; };
+		924F2B6228F7F072006183CB /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924F2B6128F7F072006183CB /* FirebaseAuthManager.swift */; };
 		928A787E2858FA2600D4C17C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787D2858FA2600D4C17C /* AppDelegate.swift */; };
 		928A78802858FA2600D4C17C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A787F2858FA2600D4C17C /* SceneDelegate.swift */; };
 		928A78852858FA2600D4C17C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928A78832858FA2600D4C17C /* Main.storyboard */; };
@@ -50,7 +53,9 @@
 		92C72BB1286AAD6C0030FE03 /* YourTipsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BB0286AAD6C0030FE03 /* YourTipsDetailController.swift */; };
 		92C72BB3286AAD7C0030FE03 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BB2286AAD7C0030FE03 /* ProfileViewController.swift */; };
 		92C72BB5286AAD8C0030FE03 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C72BB4286AAD8C0030FE03 /* TabBarViewController.swift */; };
+		9465930F795F773AB4E46CFD /* Pods_HomeBase_ios_HomeBase_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 853EAE3E3F68654D7CC5C22F /* Pods_HomeBase_ios_HomeBase_iosUITests.framework */; };
 		D93B9C6EEC03F6B6AEFC6A45 /* Pods_HomeBase_ios_HomeBase_iosUITests in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D72D4149981E8F4D74CF73E /* Pods_HomeBase_ios_HomeBase_iosUITests */; };
+		DBE097E70BC634E279DC9F53 /* Pods_HomeBase_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424F65D006235C27C1FAFEB5 /* Pods_HomeBase_iosTests.framework */; };
 		E19E9C901391ACCB285827E2 /* Pods_HomeBase_iosTests in Frameworks */ = {isa = PBXBuildFile; fileRef = 761E4D68A09D14CC07118374 /* Pods_HomeBase_iosTests */; };
 /* End PBXBuildFile section */
 
@@ -82,9 +87,12 @@
 		08BF156F2C29BB62D503A44E /* Pods-HomeBase-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios.release.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios/Pods-HomeBase-ios.release.xcconfig"; sourceTree = "<group>"; };
 		0F736D50A3EDE7E8869428FE /* Pods-HomeBase-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios.debug.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios/Pods-HomeBase-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		1D72D4149981E8F4D74CF73E /* Pods_HomeBase_ios_HomeBase_iosUITests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HomeBase_ios_HomeBase_iosUITests; path = "../../../../../../../../../Users/caseyturczynski/Library/Developer/Xcode/DerivedData/HomeBase-ios-bjyxebednlmpnxdeqvmaozghzxsd/Build/Products/Debug-iphonesimulator/Pods_HomeBase_ios_HomeBase_iosUITests.framework/Pods_HomeBase_ios_HomeBase_iosUITests"; sourceTree = SDKROOT; };
+		2AB1ECD2C1062E722258E228 /* Pods_HomeBase_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeBase_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		424F65D006235C27C1FAFEB5 /* Pods_HomeBase_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeBase_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48F22AAFD7300DF578AB5CEE /* Pods-HomeBase-iosTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-iosTests.release.xcconfig"; path = "Target Support Files/Pods-HomeBase-iosTests/Pods-HomeBase-iosTests.release.xcconfig"; sourceTree = "<group>"; };
 		5CA8BF4829BBBB1298D2BDC4 /* Pods-HomeBase-ios-HomeBase-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios-HomeBase-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios-HomeBase-iosUITests/Pods-HomeBase-ios-HomeBase-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		761E4D68A09D14CC07118374 /* Pods_HomeBase_iosTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HomeBase_iosTests; path = "../../../../../../../../../Users/caseyturczynski/Library/Developer/Xcode/DerivedData/HomeBase-ios-bjyxebednlmpnxdeqvmaozghzxsd/Build/Products/Debug-iphonesimulator/Pods_HomeBase_iosTests.framework/Pods_HomeBase_iosTests"; sourceTree = SDKROOT; };
+		853EAE3E3F68654D7CC5C22F /* Pods_HomeBase_ios_HomeBase_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeBase_ios_HomeBase_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85623ABD65D4517D4098F967 /* Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; path = "Target Support Files/Pods-HomeBase-ios-HomeBase-iosUITests/Pods-HomeBase-ios-HomeBase-iosUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9206C48B2894C2EE00F74BE6 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		921D5CFE28E096CD005E4BBF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -99,6 +107,8 @@
 		921D5D1928E14C31005E4BBF /* TimeClockViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockViewModelTests.swift; sourceTree = "<group>"; };
 		921D5D1B28E15564005E4BBF /* TipSheetViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipSheetViewModelTests.swift; sourceTree = "<group>"; };
 		921D5D1D28E15806005E4BBF /* YourTipsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTipsViewModelTests.swift; sourceTree = "<group>"; };
+		924F2B5F28F71498006183CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		924F2B6128F7F072006183CB /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		928A787A2858FA2600D4C17C /* HomeBase-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HomeBase-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		928A787D2858FA2600D4C17C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		928A787F2858FA2600D4C17C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34B305C6BAE95AFEC6CE4CC9 /* Pods_HomeBase_ios in Frameworks */,
+				7377B97CD294221D72B14124 /* Pods_HomeBase_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E19E9C901391ACCB285827E2 /* Pods_HomeBase_iosTests in Frameworks */,
+				DBE097E70BC634E279DC9F53 /* Pods_HomeBase_iosTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D93B9C6EEC03F6B6AEFC6A45 /* Pods_HomeBase_ios_HomeBase_iosUITests in Frameworks */,
+				9465930F795F773AB4E46CFD /* Pods_HomeBase_ios_HomeBase_iosUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +191,9 @@
 				A85FAD7C6318619A97C1599B /* Pods_HomeBase_ios */,
 				1D72D4149981E8F4D74CF73E /* Pods_HomeBase_ios_HomeBase_iosUITests */,
 				761E4D68A09D14CC07118374 /* Pods_HomeBase_iosTests */,
+				2AB1ECD2C1062E722258E228 /* Pods_HomeBase_ios.framework */,
+				853EAE3E3F68654D7CC5C22F /* Pods_HomeBase_ios_HomeBase_iosUITests.framework */,
+				424F65D006235C27C1FAFEB5 /* Pods_HomeBase_iosTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,6 +261,7 @@
 				928A78862858FA2800D4C17C /* Assets.xcassets */,
 				928A78882858FA2800D4C17C /* LaunchScreen.storyboard */,
 				928A788B2858FA2800D4C17C /* Info.plist */,
+				924F2B5F28F71498006183CB /* GoogleService-Info.plist */,
 			);
 			path = "HomeBase-ios";
 			sourceTree = "<group>";
@@ -311,6 +328,7 @@
 				92A5225728937F3700FEEC2F /* ApiHelper.swift */,
 				92B1173228A4277F0085CE68 /* Request.swift */,
 				92B1173B28C93CA40085CE68 /* ApiRequestError.swift */,
+				924F2B6128F7F072006183CB /* FirebaseAuthManager.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -478,6 +496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				928A788A2858FA2800D4C17C /* LaunchScreen.storyboard in Resources */,
+				924F2B6028F71498006183CB /* GoogleService-Info.plist in Resources */,
 				928A78872858FA2800D4C17C /* Assets.xcassets in Resources */,
 				928A78852858FA2600D4C17C /* Main.storyboard in Resources */,
 			);
@@ -617,6 +636,7 @@
 			files = (
 				92C72BAD286AAD470030FE03 /* TipSheetViewController.swift in Sources */,
 				92C72BB1286AAD6C0030FE03 /* YourTipsDetailController.swift in Sources */,
+				924F2B6228F7F072006183CB /* FirebaseAuthManager.swift in Sources */,
 				92BE6CA7287CEB7000B55963 /* NavBarViewController.swift in Sources */,
 				92A93D02286AB65A00957E50 /* TimeClockCell.swift in Sources */,
 				92A5225A2894BC0000FEEC2F /* LoginViewController.swift in Sources */,

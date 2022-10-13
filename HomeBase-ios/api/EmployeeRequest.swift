@@ -60,7 +60,6 @@ class EmployeeRequest: Request {
                     completion(.success(employeeResult.employees!))
                 }
             } catch {
-                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }

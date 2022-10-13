@@ -9,6 +9,7 @@ import Foundation
 
 class LoginViewModel: ViewModel {
     
+    var authManager = FirebaseAuthManager()
     var login: (() -> Void)?
     var employees : [Employee]? {
         didSet {
@@ -26,14 +27,20 @@ class LoginViewModel: ViewModel {
         }
     }
     
-    func createNewUser(user: Employee) {
-        EmployeeRequest(action: "create").saveToDb(obj: user) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print("ERROR: \n\(error)")
-                self?.errorMessage = DisplayError(title: "Error", message: "Could not create new user at this time.\n\(error)")
-            case .success(_):
-                self?.loginUser(username: user.username, newUser: true)
+    func createNewUser(user: Employee, password: String) {
+        authManager.signUp(email: user.email, password: password) { [weak self] errorString in
+            if errorString != nil {
+                self?.errorMessage = DisplayError(title: "Error", message: errorString!)
+            } else {
+                EmployeeRequest(action: "create").saveToDb(obj: user) { [weak self] result in
+                    switch result {
+                    case .failure(let error):
+                        print("ERROR: \n\(error)")
+                        self?.errorMessage = DisplayError(title: "Error", message: "Could not create new user at this time.\n\(error)")
+                    case .success(_):
+                        self?.getAndSetUsers(userEmail: user.email, newUser: true)
+                    }
+                }
             }
         }
     }
@@ -41,26 +48,36 @@ class LoginViewModel: ViewModel {
     //we want a list of all the employees for later in the app (allEmployees),
     //so let's just grab all of them, and then just verify and pick our desired user for currentUser
     //(Yes, I know this is not how we would do it with a real auth system)
-    func loginUser(username: String, newUser: Bool) {
+    func loginUser(username: String, password: String, newUser: Bool) {
+        var email = username
+        if email.firstIndex(of: "@") == nil {
+            email += "@homebase.com"
+        }
+        authManager.login(email: email, password: password, completion: { [weak self] errorString in
+            if errorString != nil {
+                self?.errorMessage = DisplayError(title: "Error", message: errorString!)
+            } else {
+                self?.getAndSetUsers(userEmail: email, newUser: false)
+            }
+        })
+    }
+    
+    func getAndSetUsers(userEmail: String, newUser: Bool) {
         EmployeeRequest(id: nil, username: nil).fetchEmployees { [weak self] result in
             switch result {
             case .failure(let error):
                 print("ERROR: \n\(error)")
                 self?.errorMessage = DisplayError(title: "Error", message: "Could not log in at this time.\n\(error)")
             case .success(let employees):
-                let thisUser = employees.filter { $0.username.lowercased() == username.lowercased() }
-                if thisUser.isEmpty {
-                    self?.errorMessage = DisplayError(title: "Invalid login", message: "No users registered with that username.")
+                let thisUser = employees.filter { $0.email.lowercased() == userEmail.lowercased() }
+                let employee = thisUser[0]
+                self?.employees = employees
+                if newUser {
+                    self?.user = employee
+                    self?.shifts = [Shift]()
+                    self?.login?()
                 } else {
-                    let employee = thisUser[0]
-                    self?.employees = employees
-                    if newUser {
-                        self?.user = employee
-                        self?.shifts = [Shift]()
-                        self?.login?()
-                    } else {
-                        self?.getUsersShifts(employee: employee)
-                    }
+                    self?.getUsersShifts(employee: employee)
                 }
             }
         }

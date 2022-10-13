@@ -82,6 +82,7 @@ public func endLoadingView() {
 }
 
 public func signOut(fromController: UIViewController) {
+    FirebaseAuthManager().signOut()
     currentUser = nil
     currentUserShifts = nil
     makeNewRootController(vcId: "LoginViewController", fromController: fromController)

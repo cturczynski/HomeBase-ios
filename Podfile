@@ -9,6 +9,9 @@ target 'HomeBase-ios' do
   pod 'IQKeyboardManagerSwift'
   pod 'RSKImageCropper'
   pod 'Toast'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
 
   target 'HomeBase-iosTests' do
     inherit! :search_paths

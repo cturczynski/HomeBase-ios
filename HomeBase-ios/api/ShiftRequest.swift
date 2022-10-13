@@ -71,7 +71,6 @@ class ShiftRequest: Request{
                     completion(.success(shiftResult.shifts!))
                 }
             } catch {
-                print("ERROR: \n\(error)")
                 completion(.failure(.cannotProcessData(description: error.localizedDescription)))
             }
         }
