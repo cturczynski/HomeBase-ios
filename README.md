@@ -1,6 +1,6 @@
 # HomeBase-ios
 
-HomeBase is a practice project that I made to work on my new React.js and Node.js skills, as well as brush back up on my Swift and iOS development skills. It was inspired by my time bartending this past year and the scheduling system we used for our schedules. The entire project is comprised of:
+HomeBase is a practice project that I made to work on my new React.js and Node.js skills, as well as brush back up on my Swift and iOS development skills. It was inspired by my time bartending this past year and the scheduling system we used for our shifts. The entire project is comprised of:
 * React web app
 * Node backend
 * MySQL database
